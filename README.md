@@ -4,11 +4,21 @@
 **Subject and social good.**
 
 ## Research questions
- - Who owns Lausanne?
- - What proportion of real estate is possessed by companies/privates...?
- - What proportion of real estate is possessed by non-swiss entities?
- - Who are the richest private real estate owners?
- - How are they involved in local/cantonal politics?
+ - **Who owns Lausanne?**
+  Our title already gives the primary question we want to answer with our project. The goal is however not to simply condense the data to a single name. Our goal is to visualise and analyse the ownership of real estate under different perspectives.
+
+
+ - **What proportion of real estate is possessed by companies,    privates, etc.?**
+  In Switzerland there are a particularly high number of privately possessed flats (_ownership of an entire floor_,
+  _propriété par étages_ in french). Is this fact visible in the data for Lausanne?
+  Or are there many real estate objects possessed by companies?
+  We will also try to compare the different proportions to Swiss average values.
+
+ - **What proportion of real estate is possessed by non-swiss entities?**
+  This question builds on the previous one. Especially for company owned objects it might be interesting to see if those companies are based in Switzerland or in other countries.
+
+ - **Who are the richest private real estate owners? How are they involved in local/cantonal politics?**
+  Consider for example the _Flon_ in the centre of Lausanne. Most buildings there are indirectly owned by a company called "Mobimo AG". Georges Theiler is a member of their administrative board and at the same time is active in the liberal democratic party of Switzerland (_PLR_).
 
 ## Dataset
 **--> open swiss data but not on opendata.swiss**
