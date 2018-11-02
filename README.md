@@ -1,12 +1,20 @@
 # Who owns Lausanne?
 
 ## Abstract
-Using cadastral data, we propose a solution to interpret the real estate area in Lausanne. Our goal is to advocate the public across real estate monopoly, leveraging public-domain data and producing valuable insights. Applying data analysis we attempt to relate real estate owners and eccessively high cost of rent and the price of apartment. Moreover, we try to understand the data from a political point of view, with the ultimately hope to show a trasparent situation of this unknown market, _for the good of our society._
+Why are rents in Lausanne so expensive? And who profits from it?
+
+The real estate market is usually quite opaque to the public.
+Being ourselves residents of Lausanne, we know how hard finding affordable housing can be. Therefore we would like to know more about the market situation that causes these difficulties.
+Our goal is to analyse cadastral data in order find and visualise the ownership proportions of real estate in the city of Lausanne under different perspectives.
+
+More concretely, leveraging public-domain data from the administration of both the city of Lausanne and the _canton de Vaud_ we attempt to relate real estate owners and high cost of rents. Moreover, we try to understand the data from a political point of view. Thereby we hope to improve the transparency of the real estate situation and its effects – _for the good of our society._
+
+
 
 
 ## Research questions
  - **Who owns Lausanne?**
-  Our title already gives the primary question we want to answer with our project. The goal is however not to simply condense the data to a single name. Our goal is to visualise and analyse the ownership of real estate under different perspectives.
+  Our title already gives the primary question we want to answer with this project.  Our goal is to visualise and analyse the ownership of real estate under different perspectives.
 
 
  - **What proportion of real estate is possessed by companies,    privates, etc.?**
@@ -44,7 +52,12 @@ We can, for example, find the biggest owners by simply ranking them by number of
 To refine the analysis, however, we could want to include informations about the buildings surface area and position in our evaluation model, which would require a finer utilization of geographical data.
 
 ## A list of internal milestones up until project milestone 2
-Add here a sketch of your planning for the next project milestone.
+ - Week 45: Get the data from the administration and start cleaning.
+ - Week 46: Create pipeline and start documentation.
+ - Week 47: Finish documentation and get first insights.
+
+**--> 25 November Deadline for milestone 2**
+
 
 ## Questions for TAs
-Add here some questions you have for us, in general or project-specific.
+ -
