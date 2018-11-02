@@ -11,11 +11,9 @@ More concretely, leveraging public-domain data from the administration of both t
 
 
 
-
 ## Research questions
  - **Who owns Lausanne?**
-  Our title already gives the primary question we want to answer with this project.  Our goal is to visualise and analyse the ownership of real estate under different perspectives.
-
+  Our title defines the primary aim of this project: getting insights into the ownership of real estate in Lausanne.
 
  - **What proportion of real estate is possessed by companies,    privates, etc.?**
   In Switzerland there are a particularly high number of privately possessed flats (_ownership of an entire floor_,
@@ -30,9 +28,9 @@ More concretely, leveraging public-domain data from the administration of both t
   Consider for example the _Flon_ in the centre of Lausanne. Most buildings there are indirectly owned by a company called "Mobimo AG". Georges Theiler is a member of their administrative board and at the same time is active in the liberal democratic party of Switzerland (_PLR_).
 
 ## Dataset
-**--> open swiss data but not on opendata.swiss**
+Even though our dataset is not listed on the site [opendata.swiss](https://opendata.swiss), we still consider it to be "swiss open data". It comes from official swiss administrations and it is open to the public. If we'll need more detailed information on some topic (for example rent prices) we will obtain it from [opendata.swiss](https://opendata.swiss).
 
-The basis for our analysis is the data which is published by the land cadastre of the city of Lausanne on [map.lausanne.ch](map.lausanne.ch).
+The basis for our analysis is the cadastral data which is published by the city of Lausanne on [map.lausanne.ch](map.lausanne.ch).
 It features information for each parcel including the owner, the area, and the position. The dataset is described on [this page](https://www.asitvd.ch/chercher/catalogue.html?view=sheet&guid=486&catalog=main&type=complete&preview=search_list).
 Here is an example screenshot and data for the Bel-Air building in the centre of Lausanne:
 
@@ -44,12 +42,14 @@ Both datasets are available for free for research institutions.
 We contacted the _service du secrétariat général et cadastre_ of the city of Lausanne on Friday, 2 November.
 They confirmed that the data is available for free for students – in general. However, the responsible person was out of office and will reach back to us on Monday.
 
-We esteem the size of the composite datasets to be of several hundred MB at most, therefore, it will comfortably fit within the memory of a single machine.
-Regarding the first dataset, the map.lausanne.ch API returns xml formatted data, but the format for the bulk data export still needs to be negotiated with the owners.
+We estimate the size of the composite datasets to be of several hundred MB at most.
+Therefore, it will comfortably fit into the memory of a single machine.
+Regarding the first dataset, the map.lausanne.ch API returns `XML` formatted data, but the format for the bulk data export still needs to be negotiated with the administration.
 The second dataset is available in several [GIS](https://en.wikipedia.org/wiki/Geographic_information_system) formats, such as MIF/MID (MapInfo), Shapefile, DXF.
-Although our datasets are of geographical nature, we should be able to perform much of our processing without the need of geographical databases.
-We can, for example, find the biggest owners by simply ranking them by number of parcels owned.
-To refine the analysis, however, we could want to include informations about the buildings surface area and position in our evaluation model, which would require a finer utilization of geographical data.
+
+Although our datasets are of geographical nature, we should be able to perform much of the processing without the need of geographical databases.
+We can, for example, find the most important real estate owners by simply ranking them by number of parcels owned.
+To refine the analysis, however, we might want to include information about the building's surface area and position in our evaluation model. This would require a finer utilisation of geographical data.
 
 ## A list of internal milestones up until project milestone 2
  - Week 45: Get the data from the administration and start cleaning.
@@ -60,4 +60,4 @@ To refine the analysis, however, we could want to include informations about the
 
 
 ## Questions for TAs
- -
+ - ...
