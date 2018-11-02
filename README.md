@@ -35,7 +35,12 @@ Both datasets are available for free for research institutions.
 We contacted the _service du secrétariat général et cadastre_ of the city of Lausanne on Friday, 2 November.
 They confirmed that the data is available for free for students – in general. However, the responsible person was out of office and will reach back to us on Monday.
 
-**How to process and enrich the data. Discuss data size and format if relevant.**
+We esteem the size of the composite datasets to be of several hundred MB at most, therefore, it will comfortably fit within the memory of a single machine.
+Regarding the first dataset, the map.lausanne.ch API returns xml formatted data, but the format for the bulk data export still needs to be negotiated with the owners.
+The second dataset is available in several [GIS](https://en.wikipedia.org/wiki/Geographic_information_system) formats, such as MIF/MID (MapInfo), Shapefile, DXF.
+Although our datasets are of geographical nature, we should be able to perform much of our processing without the need of geographical databases.
+We can, for example, find the biggest owners by simply ranking them by number of parcels owned.
+To refine the analysis, however, we could want to include informations about the buildings surface area and position in our evaluation model, which would require a finer utilization of geographical data.
 
 ## A list of internal milestones up until project milestone 2
 Add here a sketch of your planning for the next project milestone.
