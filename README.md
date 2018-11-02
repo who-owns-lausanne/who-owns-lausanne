@@ -1,7 +1,8 @@
 # Who owns Lausanne?
 
 ## Abstract
-**Subject and social good.**
+Using cadastral data, we propose a solution to interpret the real estate area in Lausanne. Our goal is to advocate the public across real estate monopoly, leveraging public-domain data and producing valuable insights. Applying data analysis we attempt to relate real estate owners and eccessively high cost of rent and the price of apartment. Moreover, we try to understand the data from a political point of view, with the ultimately hope to show a trasparent situation of this unknown market, _for the good of our society._
+
 
 ## Research questions
  - **Who owns Lausanne?**
