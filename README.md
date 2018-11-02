@@ -1,16 +1,34 @@
-# Title
+# Who owns Lausanne?
 
-# Abstract
-A 150 word description of the project idea, goals, dataset used. What story you would like to tell and why? What's the motivation behind your project?
+## Abstract
+**Subject and social good.**
 
-# Research questions
-A list of research questions you would like to address during the project. 
+## Research questions
+ - Who owns Lausanne?
+ - What proportion of real estate is possessed by companies/privates...?
+ - What proportion of real estate is possessed by non-swiss entities?
+ - Who are the richest private real estate owners?
+ - How are they involved in local/cantonal politics?
 
-# Dataset
-List the dataset(s) you want to use, and some ideas on how do you expect to get, manage, process and enrich it/them. Show us you've read the docs and some examples, and you've a clear idea on what to expect. Discuss data size and format if relevant.
+## Dataset
+**--> open swiss data but not on opendata.swiss**
 
-# A list of internal milestones up until project milestone 2
+The basis for our analysis is the data which is published by the land cadastre of the city of Lausanne on [map.lausanne.ch](map.lausanne.ch).
+It features information for each parcel including the owner, the area, and the position. The dataset is described on [this page](https://www.asitvd.ch/chercher/catalogue.html?view=sheet&guid=486&catalog=main&type=complete&preview=search_list).
+Here is an example screenshot and data for the Bel-Air building in the centre of Lausanne:
+
+![Bel-Air](belair.png)
+
+Additionally, we might want to want to estimate the real estate surface of the buildings. This is not in the dataset above. However, we can use the data for building heights extracted from a LIDAR scan of the canton. This dataset is also described on [asitvd.ch](https://www.asitvd.ch/chercher/catalogue.html?view=sheet&guid=553&catalog=main&type=complete&preview=search_list).
+
+Both datasets are available for free for research institutions.
+We contacted the _service du secrétariat général et cadastre_ of the city of Lausanne on Friday, 2 November.
+They confirmed that the data is available for free for students – in general. However, the responsible person was out of office and will reach back to us on Monday.
+
+**How to process and enrich the data. Discuss data size and format if relevant.**
+
+## A list of internal milestones up until project milestone 2
 Add here a sketch of your planning for the next project milestone.
 
-# Questions for TAa
+## Questions for TAs
 Add here some questions you have for us, in general or project-specific.
