@@ -28,9 +28,9 @@ More precisely, by leveraging public-domain data from the administration of both
   Consider for example the _Flon_ in the centre of Lausanne. Most buildings there are indirectly owned by a company called "Mobimo AG". Georges Theiler is a member of their administrative board and at the same time he's active in the liberal democratic party of Switzerland (_PLR_).
 
 ## Dataset
-Even though our dataset is not listed on the site [opendata.swiss](https://opendata.swiss), we still consider it to be "swiss open data". It comes from official swiss administrations and it is open to the public. If we'll need more detailed information on a particular topic (for example rent prices) we will obtain it from [opendata.swiss](https://opendata.swiss).
+Even though our dataset is not listed on the site [opendata.swiss](https://opendata.swiss), we still consider it to be "open swiss data". It comes from official swiss administrations and it is **open to the public**.
 
-The basis for our analysis is the cadastral data which is published by the city of Lausanne on [map.lausanne.ch](map.lausanne.ch).
+The basis for our analysis is the cadastral data which is published by the city of Lausanne on [map.lausanne.ch](https://map.lausanne.ch).
 It features information for each parcel including the owner, the area, and the position. The dataset is described on [asitvd.ch](https://www.asitvd.ch/chercher/catalogue.html?view=sheet&guid=486&catalog=main&type=complete&preview=search_list).
 Here is an example screenshot and data for the Bel-Air building in the centre of Lausanne:
 
@@ -42,13 +42,15 @@ heights extracted from a LIDAR scan of the canton. This dataset is also
 described on
 [asitvd.ch](https://www.asitvd.ch/chercher/catalogue.html?view=sheet&guid=553&catalog=main&type=complete&preview=search_list).
 
+If we'll need more detailed information on a particular topic (for example rent prices) we will obtain it from [opendata.swiss](https://opendata.swiss). Or we might also aggregate data from real estate portals like [anibis.ch](https://anibis.ch) and [homegate](https://www.homegate.ch/).
+
 Both datasets are available for free for research institutions.
 We contacted the _service du secrétariat général et cadastre_ of the city of Lausanne on Friday, 2 November.
-They confirmed that the data is available for free for students – in general. However, the responsible person was out of office and will reach back to us on Monday.
+They confirmed that the data is available for free for students and gave us the access to their `ftp` server.
 
 We estimate the size of the composite datasets to be of several hundred MB at most.
 Therefore, it will comfortably fit into the memory of a single machine.
-Regarding the first dataset, the map.lausanne.ch API returns `XML` formatted data, but the format for the bulk data export still needs to be negotiated with the administration.
+Regarding the first dataset, the [map.lausanne.ch](https://map.lausanne.ch) API returns `XML` formatted data.
 The second dataset is available in several [GIS](https://en.wikipedia.org/wiki/Geographic_information_system) formats, such as MIF/MID (MapInfo), Shapefile, and DXF.
 
 Although our datasets are of geographical nature, we should be able to perform much of the processing without the need of geographical databases.
@@ -64,5 +66,4 @@ To refine the analysis, however, we might want to include information about the 
 
 
 ## Questions for TAs
- - Would it be possible to use Scala instead of Python when using Spark? Or even in general?
- - Is it a problem that our dataset is not listed on opendata.swiss?
+ --> Questions were already discussed during the tutorial session.
