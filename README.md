@@ -19,7 +19,6 @@ More precisely, by leveraging public-domain data from the administration of both
   In Switzerland there are a particularly high number of privately possessed flats (_ownership of an entire floor_,
   _propriété par étages_ in french). Is this fact visible in the data for Lausanne?
   Or are there many real estate objects possessed by companies?
-  We will also try to compare the different proportions to Swiss average values.
 
  - **What proportion of real estate is possessed by non-swiss entities?**
   This question builds on the previous one. Especially for company owned objects it might be interesting to see whether those companies are based in Switzerland or in other countries.
@@ -30,6 +29,8 @@ More precisely, by leveraging public-domain data from the administration of both
 ## Dataset
 Even though our dataset is not listed on the site [opendata.swiss](https://opendata.swiss), we still consider it to be "open swiss data". It comes from official swiss administrations and it is **open to the public**.
 
+##### Data sources
+
 The basis for our analysis is the cadastral data which is published by the city of Lausanne on [map.lausanne.ch](https://map.lausanne.ch).
 It features information for each parcel including the owner, the area, and the position. The dataset is described on [asitvd.ch](https://www.asitvd.ch/chercher/catalogue.html?view=sheet&guid=486&catalog=main&type=complete&preview=search_list).
 Here is an example screenshot and data for the Bel-Air building in the centre of Lausanne:
@@ -38,18 +39,21 @@ Here is an example screenshot and data for the Bel-Air building in the centre of
 
 Additionally, we might want to estimate the real estate surface of the buildings
 which is not in the dataset above. However, we can use the data for building
-heights extracted from a LIDAR scan of the canton. This dataset is also
+heights extracted from a [LIDAR](https://en.wikipedia.org/wiki/Lidar) scan of the canton. This dataset is also
 described on
 [asitvd.ch](https://www.asitvd.ch/chercher/catalogue.html?view=sheet&guid=553&catalog=main&type=complete&preview=search_list).
 
-If we'll need more detailed information on a particular topic (for example rent prices) we will obtain it from [opendata.swiss](https://opendata.swiss). Or we might also aggregate data from real estate portals like [anibis.ch](https://anibis.ch) and [homegate](https://www.homegate.ch/).
+If we'll need more detailed information, we might also aggregate data from real estate portals like [anibis.ch](https://anibis.ch) and [homegate](https://www.homegate.ch/).
 
-Both datasets are available for free for research institutions.
+The cadastral and the LIDAR datasets are available for free for research institutions.
 We contacted the _service du secrétariat général et cadastre_ of the city of Lausanne on Friday, 2 November.
-They confirmed that the data is available for free for students and gave us the access to their `ftp` server.
+They gave us the access to their `ftp` server.
+
+##### Technical details
 
 We estimate the size of the composite datasets to be of several hundred MB at most.
 Therefore, it will comfortably fit into the memory of a single machine.
+
 Regarding the first dataset, the [map.lausanne.ch](https://map.lausanne.ch) API returns `XML` formatted data.
 The second dataset is available in several [GIS](https://en.wikipedia.org/wiki/Geographic_information_system) formats, such as MIF/MID (MapInfo), Shapefile, and DXF.
 
@@ -62,8 +66,8 @@ To refine the analysis, however, we might want to include information about the 
  - Week 46: Create pipeline and start documentation.
  - Week 47: Finish documentation and get first insights.
 
-**--> 25 November Deadline for milestone 2**
+**&rarr; 25 November Deadline for milestone 2**
 
 
 ## Questions for TAs
- --> Questions were already discussed during the tutorial session.
+ - Can we finish our analysis with a manual search for the political involvement of real estate owners? (The question concerns the _manual_ part.)
