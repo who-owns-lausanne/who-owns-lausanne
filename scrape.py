@@ -1,4 +1,4 @@
-import os
+import os, sys
 import requests
 import time
 from numpy import linspace
@@ -7,11 +7,8 @@ from numpy.random import exponential
 RESULTS_DIR = 'scraped/'
 
 UA = 'Mozilla/5.0 (X11; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0'
-BASE_URL = 'XXX' # replace here the right one
-API_ENDPOINT = '/prod/wsgi/mapserv_proxy',
+API_ENDPOINT = '/prod/wsgi/mapserv_proxy'
 
-lowerWest, lowerNorth = 540869.5, 150598.25
-upperWest, upperNorth = 537142, 155774.25
 total_wait = 15*60 #how many seconds we are willing to wait
 
 query_string = r"""<?xml version="1.0"?>
@@ -30,10 +27,20 @@ query_string = r"""<?xml version="1.0"?>
 </wfs:GetFeature>
 """
 
+if len(sys.argv) != 6:
+    print('usage:', sys.argv[0],
+          'base_url topLeftWest topLeftNorth bottomRightWest bottomRightNorth')
+    sys.exit(1)
+
+BASE_URL = sys.argv[1]
+upperWest, upperNorth, lowerWest, lowerNorth =\
+        (float(arg) for arg in sys.argv[2:])
+
 n_grid_x = 20
 width_x = (lowerWest - upperWest)/n_grid_x
 n_grid_y = 20
 width_y = (upperNorth - lowerNorth)/n_grid_x
+
 
 def coord_to_filename(uW, uN, lW, lN):
     return RESULTS_DIR + '_'.join(
@@ -69,7 +76,7 @@ for uN in linspace(upperNorth, lowerNorth, n_grid_y):
         lW = uW + width_x
         lN = uN - width_y
 
-        bbox = lW, lN, uW, uN
+        bbox = uW, uN, lW, lN
 
         #skip query if file already exists
         if is_saved(*bbox):
