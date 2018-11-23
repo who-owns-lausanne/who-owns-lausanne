@@ -1,3 +1,4 @@
 .DS_Store
 scraped/*.xml
 data
+scrape_homegate/html
