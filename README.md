@@ -90,8 +90,26 @@ evaluation model. This would require a finer utilisation of geographical data.
 
 ## Story outline
 
-We want to turn this project into a story that will be told on a appropriately
-designed webpage.
+We want to turn this project into a story that will be told on a nicely
+designed webpage. The story will take the perspective of someone trying to find
+accommodation in Lausanne, think of a newly arrived student. Maybe we will even
+invent an imaginary character and tell the story from his/her point of view.
+
+Driven by the difficulties of finding an affordable home in Lausanne, we start
+asking the question: Who owns all this real estate? And why are the rents in
+some _quartiers_ (districts) cheaper than in others? Following this, there will
+be an analysis of the ownership patterns overall and for different _quartiers_.
+Where are the most big companies etc. (see research questions).
+
+The main part of the story will then explain our findings about the composition
+of prices in different _quartiers_. It will combine the knowledge from the
+previous part and it will bring all the calculations together. We hope to
+be able to give an explanation whether the distance from the centre or the
+ownership pattern influences the price and where a newly arrived student should
+search for affordable accommodation.
+
+The entire story will feature various maps showing for example the ownership
+patterns or the differences in rent prices.
 
 
 ## Further ideas and discussion
