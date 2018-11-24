@@ -19,26 +19,28 @@ estate situation and its effects – _for the good of our society._
 
 ## Research questions
 
- - **Who owns Lausanne?** Our title defines the primary aim of this project:
- - getting insights into the ownership of real estate in Lausanne.
+ - **How does position influence rent prices?** Property and rent prices vary 
+   greatly with position within Switzerland. Is the same true also within the
+   city of Lausanne? Are any neighborhoods significantly cheaper or more
+   expensive ?
 
- - **What proportion of real estate is possessed by companies,    privates,
-   etc.?** In Switzerland there are a particularly high number of privately
-   possessed flats (_ownership of an entire floor_, _propriété par étages_ in
-   french). Is this fact visible in the data for Lausanne? Or are there many
-   real estate objects possessed by companies?
+- **How does the type of owners influence prices** Several categories of owners
+   are invested in the real-estate market: Private citizens, companies, pension
+   funds, and public institutions. We ask ourselves wether the proportions
+   between these categories influence rent prices.
 
- - **What proportion of real estate is possessed by non-swiss entities?** This
-   question builds on the previous one. Especially for company owned objects it
-   might be interesting to see whether those companies are based in Switzerland
-   or in other countries.
+ - **Does position influence the composition of property owners?** As position
+   might influence prices, it could also influence the profiles of real-estate
+   investors. We look for the way in which position influence the composition of
+   the categories of owners
 
  - **Who are the richest private real estate owners? How are they involved in
    local/cantonal politics?** Consider for example the _Flon_ in the centre of
    Lausanne. Most buildings there are indirectly owned by a company called
    "Mobimo AG". Georges Theiler is a member of their administrative board and at
    the same time he's active in the liberal democratic party of Switzerland
-   (_PLR_).
+   (_PLR_). Knowing the prices and owners of each building will allow us to
+   unveil the major powers at play in Lausanne real-estate market.
 
 ## Dataset
 
