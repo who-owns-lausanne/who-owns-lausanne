@@ -59,20 +59,13 @@ Lausanne:
 
 ![Bel-Air](belair.png)
 
-Additionally, we might want to estimate the real estate surface of the buildings
-which is not in the dataset above. However, we can use the data for building
-heights extracted from a [LIDAR](https://en.wikipedia.org/wiki/Lidar) scan of
-the canton. This dataset is also described on
-[asitvd.ch](https://www.asitvd.ch/chercher/catalogue.html?view=sheet&guid=553&catalog=main&type=complete&preview=search_list).
-
 If we'll need more detailed information, we might also aggregate data from real
 estate portals like [anibis.ch](https://anibis.ch) and
 [homegate](https://www.homegate.ch/).
 
-The cadastral and the LIDAR datasets are available for free for research
-institutions. We contacted the _service du secrétariat général et cadastre_ of
-the city of Lausanne on Friday, 2 November. They gave us the access to their
-`ftp` server.
+The cadastral dataset is available for free for research institutions. We
+contacted the _service du secrétariat général et cadastre_ of the city of
+Lausanne on Friday, 2 November. They gave us the access to their `ftp` server.
 
 ##### Technical details
 
@@ -91,15 +84,36 @@ number of parcels owned. To refine the analysis, however, we might want to
 include information about the building's surface area and position in our
 evaluation model. This would require a finer utilisation of geographical data.
 
-## A list of internal milestones up until project milestone 2
+## Further ideas and discussion
 
- - Week 45: Get the data from the administration and start cleaning. Week 46:
-   Create pipeline and start documentation. Week 47: Finish documentation and
-   get first insights.
+Having now a clear line (the calculation and estimation of the prices in the
+_quartiers_ of Lausanne) guiding us through our project, we can assess what
+benefit the project can make of certain datasets. Clearly, we needed some
+additional rental data in order to estimate the mean rent of a _quartier_.
+This data was obtained by scraping some of the most used websites for real
+estate announcements in Switzerland (anibis.ch, homegate.ch and tutti.ch).
+Together with the ownership data we already had this completes our needs for
+the regression model.
 
-**&rarr; 25 November Deadline for milestone 2**
+There were additional ideas that came up during our discussions of the model
+and the story we wanted to tell. Some of them are listed here. For most of them
+we won't have the time and data. But if (for some miracle) there is still time
+we might want to use one of them:
 
-## Questions for TAs
+- Rating the quality of life in each _quartier_ by counting the number of shops,
+  restaurants, bars, bus stops and the like. This could be done using the Google
+  Maps API. The life quality factor would then be another covariate in the
+  regression model. However, coming up with the scoring function is very
+  complicated.
 
- - Can we finish our analysis with a manual search for the political involvement
- - of real estate owners? (The question concerns the _manual_ part.)
+- Estimating the real estate surface of the buildings using the data for
+  building heights extracted from a [LIDAR](https://en.wikipedia.org/wiki/Lidar)
+  scan of the canton. We already mentioned this in the last milestone and the
+  dataset is also described on
+  [asitvd.ch](https://www.asitvd.ch/chercher/catalogue.html?view=sheet&guid=553&catalog=main&type=complete&preview=search_list).
+
+- Another idea was to cluster the parcels without a notion of _quartiers_.  
+  However, as described before _quartiers_ are a very meaningful and human
+  delimiters. Also, we weren't sure how such a clustering result would have to
+  be interpreted for our analysis and what we could deduce from it for our
+  story.
