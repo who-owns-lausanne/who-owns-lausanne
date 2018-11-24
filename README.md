@@ -40,12 +40,12 @@ estate situation and its effects – _for the good of our society._
    the same time he's active in the liberal democratic party of Switzerland
    (_PLR_).
 
-## Dataset
+## Datasets
 
-Even though our dataset is not listed on the site
-[opendata.swiss](https://opendata.swiss), we still consider it to be "open swiss
-data". It comes from official swiss administrations and it is **open to the
-public**.
+Even though our datasets are not listed on the site
+[opendata.swiss](https://opendata.swiss), we still consider them to be "open
+swiss data". They come from official swiss administrations or swiss
+websites/webservices and they are **open to the public**.
 
 ##### Data sources
 
@@ -59,9 +59,13 @@ Lausanne:
 
 ![Bel-Air](belair.png)
 
+<!-- TODO: Johnny: Change this paragraph for the scraping -->
+
 If we'll need more detailed information, we might also aggregate data from real
 estate portals like [anibis.ch](https://anibis.ch) and
 [homegate](https://www.homegate.ch/).
+
+<!-- TODO: Johnny: Change this for todays perspective where we have the data -->
 
 The cadastral dataset is available for free for research institutions. We
 contacted the _service du secrétariat général et cadastre_ of the city of
@@ -83,6 +87,12 @@ example, find the most important real estate owners by simply ranking them by
 number of parcels owned. To refine the analysis, however, we might want to
 include information about the building's surface area and position in our
 evaluation model. This would require a finer utilisation of geographical data.
+
+## Story outline
+
+We want to turn this project into a story that will be told on a appropriately
+designed webpage.
+
 
 ## Further ideas and discussion
 
