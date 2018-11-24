@@ -2,3 +2,4 @@
 scraped/*.xml
 data
 scrape_homegate/html
+.ipynb_checkpoints/
