@@ -84,20 +84,6 @@ select only offers for which the address is known and valid and the surface area
 of the offer's object is available. Entries present in both datasets were
 detected and deduplicated.
 
-##### Technical details
-
-The size of the composite dataset is of several hundred MB. It can therefore
-confortably fit into the memory of a single machine.
-
-At the source, the cadastral data of Lausanne is available in ShapeFile format.
-The _quartiers_ boundaries are in KML format. The rent offers are in the raw
-formats used by the respective websites UI.
-
-To process the spatial data in a coherent way in Python, we converted ShapeFile
-and KML files to GeoJson by using the QGIS software application.
-
-Ad-Hoc parsers were needed for the rent offers data.
-
 <!-- altimetry data? -->
 <!-- address data to map address to location? -->
 
@@ -125,6 +111,25 @@ search for affordable accommodation.
 The entire story will feature various maps showing for example the ownership
 patterns or the differences in rent prices.
 
+
+## Implementation
+
+##### Sourcing the data
+Getting our hands on the required data was already a challenging aspect of this
+project. Several scrapers were developed for this purpose. The Jupyter notebook
+describes the scraping and cleaning phase.
+
+##### Data pipeline
+The total datasets size is under 1 GB. We can therefore run all of our analysis
+on a single local machine.
+
+At the source, the cadastral data of Lausanne is available in ShapeFile format.
+The _quartiers_ boundaries are in KML format. The rent offers are in the raw
+formats used by the respective websites UI. To process the spatial data in a
+coherent way in Python, we converted ShapeFile and KML files to GeoJson by using
+the QGIS software application.
+
+Ad-Hoc parsers were needed for the rent offers data.
 
 ## Further ideas and discussion
 
