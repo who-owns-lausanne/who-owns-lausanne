@@ -49,7 +49,7 @@ Even though our datasets are not listed on the site
 swiss data". They come from official swiss administrations or swiss
 websites/webservices and they are **open to the public**.
 
-##### Data sources
+##### Cadastral data
 
 The basis for our analysis is the cadastral data which is published by the city
 of Lausanne on [map.lausanne.ch](https://map.lausanne.ch). It features
@@ -61,36 +61,48 @@ Lausanne:
 
 ![Bel-Air](belair.png)
 
-<!-- TODO: Johnny: Change this paragraph for the scraping -->
-
-If we'll need more detailed information, we might also aggregate data from real
-estate portals like [anibis.ch](https://anibis.ch) and
-[homegate](https://www.homegate.ch/).
-
-<!-- TODO: Johnny: Change this for todays perspective where we have the data -->
-
 The cadastral dataset is available for free for research institutions. We
 contacted the _service du secrétariat général et cadastre_ of the city of
 Lausanne on Friday, 2 November. They gave us the access to their `ftp` server.
 
+##### Maps of the _quartiers_
+
+To be able to capture the space-dependent behaviour of rent prices and ownership
+structure, we will need to aggregate our data by position.
+Lausanne is divided, for geographical and historical reasons, in [18 _quartiers_](https://www.lausanne.ch/officiel/statistique/quartiers/presentation-des-quartiers.html).
+We will use this conventional division to perform our analysis.
+The [reference map](https://www.google.com/maps/d/u/0/viewer?mid=1Fhi7wXjxdSfkNnZSwMysrh0JPQD2BLMF&ll=46.55355566379154%2C6.652336000000105&z=12)
+ is hosted on Google Maps. It is possible to download it as a KML file.
+
+##### Rent prices
+
+To collect datapoints on the cost of rent in Lausanne, we retrieved the current
+listings for rents from the websites [anibis](https://www.anibis.ch/fr/default.aspx)
+and [homegate](https://www.homegate.ch/fr). We were able to download about 900
+offers from anibis and 400 from homegate. The data needed extensive cleaning to
+select only offers for which the address is known and valid and the surface area
+of the offer's object is available. Entries present in both datasets were
+detected and deduplicated.
+
 ##### Technical details
 
-We estimate the size of the composite datasets to be of several hundred MB at
-most. Therefore, it will comfortably fit into the memory of a single machine.
+The size of the composite dataset is of several hundred MB. It can therefore
+confortably fit into the memory of a single machine.
 
-Regarding the first dataset, the [map.lausanne.ch](https://map.lausanne.ch) API
-returns `XML` formatted data. The second dataset is available in several
-[GIS](https://en.wikipedia.org/wiki/Geographic_information_system) formats, such
-as MIF/MID (MapInfo), Shapefile, and DXF.
+At the source, the cadastral data of Lausanne is available in ShapeFile format.
+The _quartiers_ boundaries are in KML format. The rent offers are in the raw
+formats used by the respective websites UI.
 
-Although our datasets are of geographical nature, we should be able to perform
-much of the processing without the need of geographical databases. We can, for
-example, find the most important real estate owners by simply ranking them by
-number of parcels owned. To refine the analysis, however, we might want to
-include information about the building's surface area and position in our
-evaluation model. This would require a finer utilisation of geographical data.
+To process the spatial data in a coherent way in Python, we converted ShapeFile
+and KML files to GeoJson by using the QGIS software application.
+
+Ad-Hoc parsers were needed for the rent offers data.
+
+<!-- altimetry data? -->
+<!-- address data to map address to location? -->
 
 ## Story outline
+
 
 We want to turn this project into a story that will be told on a nicely
 designed webpage. The story will take the perspective of someone trying to find
