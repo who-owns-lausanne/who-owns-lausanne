@@ -129,7 +129,9 @@ Lausanne on Friday, 2 November. They gave us the access to their `ftp` server.
 
 ##### Address data
 
-
+We also need to convert addresses to coordinates at some point. There is luckily
+another cadastral layer of building addresses, provided by the Cadastral offic
+of Lausanne. It can again be found on the `ftp` server.
 
 ##### Maps of the _quartiers_
 
@@ -215,3 +217,9 @@ we might want to use one of them:
   delimiters. Also, we weren't sure how such a clustering result would have to
   be interpreted for our analysis and what we could deduce from it for our
   story.
+
+## Project organisation
+
+We started a new project on a shared [Todoist](https://todoist.com/). This is
+now the place where we manage all the deadlines, issues, assignements and
+discussions.
