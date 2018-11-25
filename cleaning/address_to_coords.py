@@ -46,7 +46,8 @@ if __name__ == '__main__':
         coords_rue = address_to_coords(offer['street'], offer['number'])
         if coords_rue:
             coords, rue_abr = coords_rue
-            offer['position'] = coords
+            #switch the order because it's inversed for some reason
+            offer['position'] = [coords[1], coords[0]]
             offer['matched_rue'] = rue_abr
             res.append(offer)
 
