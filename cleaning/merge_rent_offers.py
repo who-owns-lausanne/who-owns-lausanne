@@ -18,6 +18,7 @@ def valid(offer):
             int(offer['surface']) != 0 and float(offer['price']) != 0.
 
 def standardize_address(offer):
+    """use the address format used in the address cadastral layer"""
     replacements = {
             r'\bavenue\b':'av',
             r'\broute\b':'rte',
