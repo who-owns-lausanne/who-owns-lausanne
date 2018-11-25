@@ -120,6 +120,7 @@ project. Several scrapers were developed for this purpose. The Jupyter notebook
 describes the scraping and cleaning phase.
 
 ##### Data pipeline
+
 The total datasets size is under 1 GB. We can therefore run all of our analysis
 on a single local machine.
 
@@ -128,8 +129,11 @@ The _quartiers_ boundaries are in KML format. The rent offers are in the raw
 formats used by the respective websites UI. To process the spatial data in a
 coherent way in Python, we converted ShapeFile and KML files to GeoJson by using
 the QGIS software application.
-
 Ad-Hoc parsers were needed for the rent offers data.
+
+##### Interpreting the data
+
+To analyze the collected data and to answer to research questions ...
 
 ## Further ideas and discussion
 
