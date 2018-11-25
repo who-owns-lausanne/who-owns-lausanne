@@ -154,7 +154,6 @@ address is known and valid, and the surface area of the offer's object is
 available. Entries present in all datasets were detected and deduplicated.
 
 
-
 ## Implementation
 
 ##### Sourcing the data
@@ -174,9 +173,13 @@ coherent way in Python, we converted the ShapeFile and KML files to GeoJson by
 using the [QGIS software application](https://www.qgis.org/en/site/). Ad-Hoc
 parsers were needed for the rent offers data.
 
-##### Interpreting the data
+##### Model
 
-To analyze the collected data and to answer to research questions ...
+The main analysis goal of this project is to determine how prices vary as a
+function of the ownership pattern of a _quartier_ and as a function of the
+_quartier_'s distance from the centre. In order to do this, we will use a
+linear regression model that is detailed in the notebook. We hope that this
+will reveal information about price composition of rents.
 
 ## Further ideas and discussion
 
