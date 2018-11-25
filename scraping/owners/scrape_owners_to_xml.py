@@ -4,12 +4,12 @@ import time
 from numpy import linspace
 from numpy.random import exponential
 
-RESULTS_DIR = 'scraped/'
+RESULTS_DIR = 'raw-data/owners/'
 
 UA = 'Mozilla/5.0 (X11; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0'
 API_ENDPOINT = '/prod/wsgi/mapserv_proxy'
 
-total_wait = 15*60 #how many seconds we are willing to wait
+total_wait = 15*60 # how many seconds to wait between request
 
 query_string = r"""<?xml version="1.0"?>
 <wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" service="WFS" version="1.1.0" maxFeatures="200" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd">
