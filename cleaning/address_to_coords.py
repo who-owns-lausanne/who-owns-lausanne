@@ -2,7 +2,7 @@ import json
 import re
 import sys
 
-DATA_DIR = 'data/'
+DATA_DIR = 'data/maps/'
 
 ad_bats = json.load(open(DATA_DIR + 'addresses_batiments.geojson'))
 #discard addresses with RUE_ABR == None, there's about 500 of them out of 63K
