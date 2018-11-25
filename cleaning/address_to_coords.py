@@ -47,7 +47,7 @@ if __name__ == '__main__':
         if coords_rue:
             coords, rue_abr = coords_rue
             #switch the order because it's inversed for some reason
-            offer['position'] = [coords[1], coords[0]]
+            offer['position'] = coords
             offer['matched_rue'] = rue_abr
             res.append(offer)
 
