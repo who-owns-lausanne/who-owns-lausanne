@@ -19,7 +19,7 @@ estate situation and its effects – _for the good of our society._
 
 ## Research questions
 
- - **How does position influence rent prices?** Property and rent prices vary 
+ - **How does position influence rent prices?** Property and rent prices vary
    greatly with position within Switzerland. Is the same true also within the
    city of Lausanne? Are any neighborhoods significantly cheaper or more
    expensive ?
@@ -70,18 +70,17 @@ Lausanne on Friday, 2 November. They gave us the access to their `ftp` server.
 To be able to capture the space-dependent behaviour of rent prices and ownership
 structure, we will need to aggregate our data by position.
 Lausanne is divided, for geographical and historical reasons, in [18 _quartiers_](https://www.lausanne.ch/officiel/statistique/quartiers/presentation-des-quartiers.html).
-We will use this conventional division to perform our analysis.
+We will use this conventional division to perform our analysis and to showcast our story becaus as human being we are used to think of a place by his political division. Our final goal is to offer to the public valuable insights about the price of Lausanne, results divided by quarter are easy to interpret.
 The [reference map](https://www.google.com/maps/d/u/0/viewer?mid=1Fhi7wXjxdSfkNnZSwMysrh0JPQD2BLMF&ll=46.55355566379154%2C6.652336000000105&z=12)
  is hosted on Google Maps. It is possible to download it as a KML file.
 
 ##### Rent prices
 
 To collect datapoints on the cost of rent in Lausanne, we retrieved the current
-listings for rents from the websites [anibis](https://www.anibis.ch/fr/default.aspx)
-and [homegate](https://www.homegate.ch/fr). We were able to download about 900
-offers from anibis and 400 from homegate. The data needed extensive cleaning to
+listings for rents from three websites: [anibis](https://www.anibis.ch/fr/default.aspx), [homegate](https://www.homegate.ch/fr) and [tutti](https://tutti.ch). We were able to download about 900
+offers from Anibis, 400 from Homegate and 600 from Tutti. The data needed extensive cleaning to
 select only offers for which the address is known and valid and the surface area
-of the offer's object is available. Entries present in both datasets were
+of the offer's object is available. Entries present in all datasets were
 detected and deduplicated.
 
 <!-- altimetry data? -->
