@@ -6,4 +6,4 @@ scraping/homegate/html
 scraping/tutti/tutti
 map
 
-*/__pycache__/*
+__pycache__/*
