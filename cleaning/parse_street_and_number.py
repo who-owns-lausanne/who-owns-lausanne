@@ -10,17 +10,18 @@ def is_streetnumber(word):
         )
     )
 
+
 offers_filename = sys.argv[1]
 result = []
 with open(offers_filename) as f:
     offers = json.load(f)
     for offer in offers:
         street = ' '.join([word
-                for word in offer['address'].split()
-                if not is_streetnumber(word)])
+                           for word in offer['address'].split()
+                           if not is_streetnumber(word)])
         number = ' '.join([number
-                for number in offer['address'].split()
-                if is_streetnumber(number)])
+                           for number in offer['address'].split()
+                           if is_streetnumber(number)])
 
         offer['street'] = street
         offer['number'] = number

@@ -8,6 +8,7 @@ invalid entries removed duplicates removed and street names standardized (Av.
 -> Avenue, Ch. -> Chemin, etc)
 """
 
+
 def valid(offer):
     try:
         # if conversion fails, return false because price is not numerical
@@ -15,29 +16,31 @@ def valid(offer):
     except:
         return False
     return offer['surface'].isdecimal() and offer['address'] != '' and\
-            int(offer['surface']) != 0 and float(offer['price']) != 0.
+        int(offer['surface']) != 0 and float(offer['price']) != 0.
+
 
 def standardize_address(offer):
     """use the address format used in the address cadastral layer"""
     replacements = {
-            r'\bavenue\b':'av',
-            r'\broute\b':'rte',
-            r'\bruelle\b':'rlle',
-            r'\bpromenade\b':'prom',
-            r'\bplace\b':'pl',
-            r'\bpassage\b':'pass',
-            r'\bchemin\b':'ch',
-            r'\bboulevard\b':'bd',
+            r'\bavenue\b': 'av',
+            r'\broute\b': 'rte',
+            r'\bruelle\b': 'rlle',
+            r'\bpromenade\b': 'prom',
+            r'\bplace\b': 'pl',
+            r'\bpassage\b': 'pass',
+            r'\bchemin\b': 'ch',
+            r'\bboulevard\b': 'bd',
     }
     street = offer['street']
     for pattern in replacements:
         street = re.sub(pattern, replacements[pattern], street,
-                flags=re.IGNORECASE)
+                        flags=re.IGNORECASE)
 
     res = offer.copy()
     res['street'] = street
 
     return res
+
 
 def offers_equal(o1, o2):
     return (o1['address'] == o2['address']) and\
