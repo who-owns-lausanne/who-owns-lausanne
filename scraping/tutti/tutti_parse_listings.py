@@ -3,7 +3,7 @@ import json
 import pandas as pd
 from pandas.io.json import json_normalize
 import numpy as np
-
+import re
 # Iterate over all json in dir and save it on a JSON.
 
 RAW_DIR = '../../data/raw/tutti/'
@@ -89,7 +89,8 @@ not_useful_columns = ['company_ad',
                       'location_info.region_name',
                       'location_info.region_id',
                       'public_account_id',
-                      'type']
+                      'type',
+                      'body']
 
 df.drop(not_useful_columns, axis='columns', inplace=True)
 
@@ -112,7 +113,6 @@ df.reset_index(drop=True, inplace=True)
 
 # CLEAN SURFACE
 df['surface'] = df['surface'].str.replace('m²', '')
-df['surface'] = df['surface'].astype(float)
 
 # Add a column to keep track of montly payment
 df['monthlyPayment'] = df['price'].str.contains('mois') | df['price'].str.contains('sem.')
@@ -126,7 +126,23 @@ df['price'] = df['price'].str.replace('.- par mois', '')
 df['price'] = df['price'].str.replace('.-', '')
 df['price'] = df['price'].str.replace('par sem.', '')
 df['price'] = df['price'].str.replace('\'', '')
-df['price'] = df['price'].astype(float)
+
+
+df['street'] = df['address'].astype(str)
+
+df['street'] = df['street'].astype(str)
+df['address'] = df['address'].astype(str)
+
+
+def get_street_number(str_):
+    split = re.split('(\d.)', str_)
+    if split is not None and len(split) > 1:
+        return split[1]
+    else:
+        return '0'
+
+
+df['number'] = df['address'].apply(lambda x: get_street_number(x))
 
 # EXPORT TO JSON FORMAT
-df.to_json(FINAL_DIR + 'tutti.json')
+df.to_json(FINAL_DIR + 'tutti.json', orient='records')

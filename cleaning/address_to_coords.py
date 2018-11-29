@@ -1,6 +1,6 @@
 import json
 import re
-import sys
+
 
 DATA_DIR = 'data/maps/'
 
@@ -42,9 +42,9 @@ def address_to_coords(street, number):
     return None
 
 
-if __name__ == '__main__':
+def main(filename):
     """give it a json of rent offers"""
-    offers = json.load(open(sys.argv[1]))
+    offers = json.load(open(filename))
     res = []
     for offer in offers:
         coords_rue = address_to_coords(offer['street'], offer['number'])
@@ -55,4 +55,4 @@ if __name__ == '__main__':
             offer['matched_rue'] = rue_abr
             res.append(offer)
 
-    print(json.dumps(res, ensure_ascii=False, indent=2))
+    return res

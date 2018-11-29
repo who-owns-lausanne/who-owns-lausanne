@@ -1,6 +1,6 @@
 import json
 import re
-import sys
+
 
 """
 Take 2 json files of addresses as argument and returns a single one with
@@ -47,13 +47,13 @@ def offers_equal(o1, o2):
             (float(o1['price']) == float(o2['price']))
 
 
-if __name__ == '__main__':
-
-    addresses_1 = json.load(open(sys.argv[1]))
-    addresses_2 = json.load(open(sys.argv[2]))
+def main(filenames):
+    all_files = []
+    for filename in filenames:
+        all_files = all_files + json.load(open(filename))
 
     addresses = sorted(
-            [standardize_address(add) for add in (addresses_1 + addresses_2)
+            [standardize_address(add) for add in (all_files)
                 if valid(add)],
             key=lambda o: o['address']
             )
@@ -66,4 +66,4 @@ if __name__ == '__main__':
             dedupes.append(cur)
         prev = cur
 
-    print(json.dumps(dedupes, ensure_ascii=False, indent=2))
+    return dedupes
