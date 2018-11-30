@@ -1,7 +1,6 @@
 # Who owns Lausanne?
 
 ## Abstract
-
 Why are rents in Lausanne so expensive? And who profits from it?
 
 The real estate market is usually quite opaque to the public. Being ourselves
