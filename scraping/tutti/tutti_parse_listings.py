@@ -89,7 +89,6 @@ not_useful_columns = ['company_ad',
                       'location_info.region_name',
                       'location_info.region_id',
                       'public_account_id',
-                      'type',
                       'body']
 
 df.drop(not_useful_columns, axis='columns', inplace=True)
@@ -126,6 +125,7 @@ df['price'] = df['price'].str.replace('.- par mois', '')
 df['price'] = df['price'].str.replace('.-', '')
 df['price'] = df['price'].str.replace('par sem.', '')
 df['price'] = df['price'].str.replace('\'', '')
+df['price'] = df['price'].str.strip()
 
 
 df['street'] = df['address'].astype(str)
@@ -145,4 +145,9 @@ def get_street_number(str_):
 df['number'] = df['address'].apply(lambda x: get_street_number(x))
 
 # EXPORT TO JSON FORMAT
+df = df.query(
+    'real_estate_type == "Maisons" or real_estate_type == "Appartements"'
+)
+df = df.query('type == "u"')
+df = df.drop(['type'], axis='columns')
 df.to_json(FINAL_DIR + 'tutti.json', orient='records')

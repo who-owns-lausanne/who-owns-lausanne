@@ -35,24 +35,23 @@ def address_to_coords(street, number):
     for building in batiments:
         rue_abr = building['properties']['RUE_ABR']
         if street_match(rue_abr, street) and\
-                (building['properties']['TEXTSTRING'] == number or not number):
-                # match the first occurence if no street number given
+                building['properties']['TEXTSTRING'] == number:
+                #only match when street number and street coincide
                 return building['geometry']['coordinates'], rue_abr
     # Else return None if no match
     return None
 
 
 def main(filename):
-    """give it a json of rent offers"""
+    """returns a list of offers with position resolved. offers not
+    matchin any position are dropped"""
     offers = json.load(open(filename))
     res = []
     for offer in offers:
         coords_rue = address_to_coords(offer['street'], offer['number'])
         if coords_rue:
             coords, rue_abr = coords_rue
-            # Switch the order because it's inversed for some reason
             offer['position'] = coords
-            offer['matched_rue'] = rue_abr
             res.append(offer)
 
     return res

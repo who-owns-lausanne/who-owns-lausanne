@@ -21,6 +21,7 @@ for i, offer_file in enumerate(os.listdir(DATA_DIR)):
             zip_num = re.search(r"kvlisting_zip: '(\d+)'", text).group(1)
             rooms = re.search(r"kvnumberOfRooms: '([\d\.]+)'", text).group(1)
             surface = re.search(r"kvlivingSpace: '([\d\.]+)", text).group(1)
+            obj_type = re.search(r"kvlisting_objectType: '([\w]+)", text).group(1)
         except:
             #skip misbehaving offers
             continue
@@ -34,7 +35,8 @@ for i, offer_file in enumerate(os.listdir(DATA_DIR)):
                 'surface': surface,
                 'numberRooms':rooms
         }
-        offer_dicts.append(res)
+        if obj_type in ('Maison', 'Appartement'):
+            offer_dicts.append(res)
 
 print(json.dumps(offer_dicts))
 

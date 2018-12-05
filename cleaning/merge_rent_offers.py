@@ -10,13 +10,23 @@ invalid entries removed duplicates removed and street names standardized (Av.
 
 
 def valid(offer):
+    """an offer is valid if it is clean and usable"""
+
+    address_valid = offer['address'] != ''
+
     try:
-        # if conversion fails, return false because price is not numerical
-        float(offer['price'])
+        price = float(offer['price']) #throws if fails
+        price_valid = price > 0.
     except:
-        return False
-    return offer['surface'].isdecimal() and offer['address'] != '' and\
-        int(offer['surface']) != 0 and float(offer['price']) != 0.
+        price_valid = False
+
+    try:
+        surface = int(offer['surface'])
+        surface_valid = surface > 10
+    except:
+        surface_valid = False
+
+    return address_valid and surface_valid and price_valid
 
 
 def standardize_address(offer):
@@ -52,16 +62,16 @@ def main(filenames):
     for filename in filenames:
         all_files = all_files + json.load(open(filename))
 
-    addresses = sorted(
-            [standardize_address(add) for add in (all_files)
-                if valid(add)],
+    offers = sorted(
+            [standardize_address(off) for off in all_files
+                if valid(off)],
             key=lambda o: o['address']
             )
 
-    prev = addresses[0]
+    prev = offers[0]
     dedupes = [prev]
 
-    for cur in addresses[1:]:
+    for cur in offers[1:]:
         if not offers_equal(cur, prev):
             dedupes.append(cur)
         prev = cur
