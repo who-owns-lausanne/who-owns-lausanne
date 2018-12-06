@@ -16,22 +16,25 @@ API_ENDPOINT = '/mieten/immobilien/ort-lausanne/trefferliste'
 
 total_pages = 20
 
+
 def request(base_url, endpoint, params):
     return requests.get(
-        url = base_url + endpoint,
-        headers = {
+        url=base_url + endpoint,
+        headers={
             'User-Agent': UA,
             'Accept': 'text/html',
             'Referer': base_url,
             'Accept-Language': 'de-CH'
         },
-        params = params
+        params=params
     )
+
 
 def get_result_pages(list_html):
     soup = BeautifulSoup(list_html, 'html.parser')
 
     return [link.get('href') for link in soup.find_all(class_="detail-page-link")]
+
 
 def download_result_pages(base_url):
     """Download all the rental unit results and store their HTML pages in a folder."""
@@ -39,7 +42,7 @@ def download_result_pages(base_url):
     for page_index in range(1, total_pages + 1):
         result = request(
             base_url, API_ENDPOINT,
-            params = {
+            params={
                 "ep": str(page_index),
                 "tab": "list",
                 "o": "sortToplisting-desc"
@@ -70,8 +73,10 @@ def download_result_pages(base_url):
 
             time.sleep(exponential(1))
 
+
 def contains_digits(string):
     return any(char.isdigit() for char in string)
+
 
 def parse_result_pages():
     rent_units = []
@@ -101,7 +106,7 @@ def parse_result_pages():
 
         city = address.span.string
         rent_unit["postCode"] = city.split(" ")[0]
-        rent_unit["city"]= city.split(" ")[1]
+        rent_unit["city"] = city.split(" ")[1]
 
         price_string = soup.find(itemprop="price").string
         rent_unit["price"] = re.sub("\D+", "", price_string)
@@ -109,7 +114,8 @@ def parse_result_pages():
         surface_span = soup.find("span", string="Wohnfläche")
 
         if surface_span is not None:
-            rent_unit["surface"] = surface_span.find_next_sibling("span").span.string
+            rent_unit["surface"] = surface_span.find_next_sibling(
+                "span").span.string
         else:
             rent_unit["surface"] = ""
 
@@ -118,7 +124,8 @@ def parse_result_pages():
         if rooms_span is None:
             rent_unit["numberRooms"] = ""
         else:
-            rent_unit["numberRooms"] = rooms_span.find_next_sibling("span").string
+            rent_unit["numberRooms"] = rooms_span.find_next_sibling(
+                "span").string
 
         rent_unit["title"] = soup.find(class_="title").string
 

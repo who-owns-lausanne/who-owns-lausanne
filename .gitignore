@@ -6,3 +6,5 @@ scraping/homegate/html
 scraping/tutti/tutti
 map
 __pycache__/
+*.csv
+s

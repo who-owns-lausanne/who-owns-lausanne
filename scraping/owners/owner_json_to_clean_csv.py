@@ -1,21 +1,25 @@
 import pandas as pd
 
-proprio = pd.read_json('proprio.json')
 
-# drop fields missing commune number
-proprio = proprio[~proprio['numcom'].isna()]
+def main(filename_input, filename_output):
+    """Remove all outliers from dirty owners JSON and return a cleaned CSV"""
 
-# only select parcelles in the commune of Lausanne
-proprio_lauz = proprio.query('numcom == 132')
+    proprio = pd.read_json(filename_input)
 
-# very few rows are missing the proprietary. drop them
-proprio_lauz = proprio_lauz[~proprio_lauz['proprio'].isna()]
+    # drop fields missing commune number
+    proprio = proprio[~proprio['numcom'].isna()]
 
-#drop duplicate rows (caused by overlap of rectangles during scraping)
-proprio_lauz = proprio_lauz.drop_duplicates()
+    # only select parcelles in the commune of Lausanne
+    proprio_lauz = proprio.query('numcom == 132')
 
-# cast to the proper dtypes
-proprio_lauz = proprio_lauz.astype({'numcom':pd.np.int, 'no_parc':pd.np.int})
+    # very few rows are missing the proprietary. drop them
+    proprio_lauz = proprio_lauz[~proprio_lauz['proprio'].isna()]
 
-# serialize to csv
-proprio_lauz.to_csv('proprio_lausanne.csv', index=False)
+    # drop duplicate rows (caused by overlap of rectangles during scraping)
+    proprio_lauz = proprio_lauz.drop_duplicates()
+
+    # cast to the proper dtypes
+    proprio_lauz = proprio_lauz.astype({'numcom': pd.np.int, 'no_parc': pd.np.int})
+
+    # serialize to csv
+    proprio_lauz.to_csv(filename_output, index=False)
