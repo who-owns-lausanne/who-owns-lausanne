@@ -32,13 +32,13 @@ def valid(offer):
 def standardize_address(offer):
     """use the address format used in the address cadastral layer"""
     replacements = {
-            r'\bavenue\b': 'av',
+            r'\bav\.|\bavenue\b': 'av',
             r'\broute\b': 'rte',
             r'\bruelle\b': 'rlle',
-            r'\bpromenade\b': 'prom',
-            r'\bplace\b': 'pl',
-            r'\bpassage\b': 'pass',
-            r'\bchemin\b': 'ch',
+            r'prom\.|\bpromenade\b': 'prom',
+            r'\bpl\.|\bplace\b': 'pl',
+            r'\bpass\.|\bpassage\b': 'pass',
+            r'\bch\.|\bchemin\b': 'ch',
             r'\bboulevard\b': 'bd',
     }
     street = offer['street']
@@ -65,7 +65,7 @@ def main(filenames):
     offers = sorted(
             [standardize_address(off) for off in all_files
                 if valid(off)],
-            key=lambda o: o['address']
+            key=lambda o: (o['address'], float(o['price']))
             )
 
     prev = offers[0]
