@@ -41,7 +41,8 @@ def getTutti(page, limit=100):
         ('with_all_regions', 'false'),
     )
 
-    response = requests.get('https://api.tutti.ch/v10/list.json', headers=headers, params=params, cookies=cookies)
+    response = requests.get('https://api.tutti.ch/v10/list.json',
+                            headers=headers, params=params, cookies=cookies)
     return json.loads(response.content)
 
 
@@ -50,15 +51,15 @@ def saveJson(data, filename):
         json.dump(data, outfile)
 
 
-# Compute number of pages to iterate
-limit = 100
-total_ads = getTutti(page=1, limit=limit)['search_total']
-pages = math.ceil(total_ads/limit)
+if __name__ == "__main__":
+    # Compute number of pages to iterate
+    limit = 100
+    total_ads = getTutti(page=1, limit=limit)['search_total']
+    pages = math.ceil(total_ads / limit)
 
-
-# Iterate through all pages in region=20 (Lausanne) and save data locally
-for page in np.arange(1, pages+1):
-    j = getTutti(page=page, limit=limit)
-    filename = RAW_DIR + 'page_' + str(page) + '.json'
-    print("Scrape and save: ", filename)
-    saveJson(j, filename)
+    # Iterate through all pages in region=20 (Lausanne) and save data locally
+    for page in np.arange(1, pages + 1):
+        j = getTutti(page=page, limit=limit)
+        filename = RAW_DIR + 'page_' + str(page) + '.json'
+        print("Scrape and save: ", filename)
+        saveJson(j, filename)

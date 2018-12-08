@@ -4,7 +4,6 @@ data
 .ipynb_checkpoints/
 scraping/homegate/html
 scraping/tutti/tutti
-map
 __pycache__/
 *.csv
-s
+export/*

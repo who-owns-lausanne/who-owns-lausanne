@@ -3,7 +3,7 @@ import re
 
 
 """
-Take 2 json files of addresses as argument and returns a single one with
+Take N json files of addresses as argument and returns a single one with
 invalid entries removed duplicates removed and street names standardized (Av.
 -> Avenue, Ch. -> Chemin, etc)
 """
@@ -15,7 +15,7 @@ def valid(offer):
     address_valid = offer['address'] != ''
 
     try:
-        price = float(offer['price']) #throws if fails
+        price = float(offer['price'])  # throws if fails
         price_valid = price > 0.
     except:
         price_valid = False
@@ -32,14 +32,14 @@ def valid(offer):
 def standardize_address(offer):
     """use the address format used in the address cadastral layer"""
     replacements = {
-            r'\bav\.|\bavenue\b': 'av',
-            r'\broute\b': 'rte',
-            r'\bruelle\b': 'rlle',
-            r'prom\.|\bpromenade\b': 'prom',
-            r'\bpl\.|\bplace\b': 'pl',
-            r'\bpass\.|\bpassage\b': 'pass',
-            r'\bch\.|\bchemin\b': 'ch',
-            r'\bboulevard\b': 'bd',
+        r'\bav\.|\bavenue\b': 'av',
+        r'\broute\b': 'rte',
+        r'\bruelle\b': 'rlle',
+        r'prom\.|\bpromenade\b': 'prom',
+        r'\bpl\.|\bplace\b': 'pl',
+        r'\bpass\.|\bpassage\b': 'pass',
+        r'\bch\.|\bchemin\b': 'ch',
+        r'\bboulevard\b': 'bd',
     }
     street = offer['street']
     for pattern in replacements:
@@ -54,7 +54,7 @@ def standardize_address(offer):
 
 def offers_equal(o1, o2):
     return (o1['address'] == o2['address']) and\
-            (float(o1['price']) == float(o2['price']))
+        (float(o1['price']) == float(o2['price']))
 
 
 def main(filenames):
@@ -63,10 +63,10 @@ def main(filenames):
         all_files = all_files + json.load(open(filename))
 
     offers = sorted(
-            [standardize_address(off) for off in all_files
-                if valid(off)],
-            key=lambda o: (o['address'], float(o['price']))
-            )
+        [standardize_address(off) for off in all_files
+         if valid(off)],
+        key=lambda o: (o['address'], float(o['price']))
+    )
 
     prev = offers[0]
     dedupes = [prev]

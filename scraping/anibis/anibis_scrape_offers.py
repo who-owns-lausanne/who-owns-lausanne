@@ -14,5 +14,5 @@ with open(DATA_DIR + 'listing_urls.txt') as f:
         with open(DATA_DIR + 'offers/offer_{}.html'.format(i), 'w') as fw:
             fw.write(r.text)
         print(i, len(r.text))
-        #wait 1 second on avg, finish in 17 minutes
+        # wait 1 second on avg, finish in 17 minutes
         time.sleep(numpy.random.exponential(1))
