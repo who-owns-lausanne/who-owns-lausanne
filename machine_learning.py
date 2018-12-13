@@ -1,55 +1,44 @@
 # import required packages
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.model_selection import train_test_split
-from sklearn import neighbors
-from sklearn.metrics import mean_squared_error
-from math import sqrt
+
 import numpy as np
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn import metrics
+from sklearn.model_selection import cross_validate
+
+LAT_LONG = ["long", "lat"]
+J_FOLD = 10
 
 
-def model_price_knn(train, predict, k=[3,4,5]):
-
-    # SPLIT DATA FOR TRAIN / TEST
-    train, test = train_test_split(train, test_size=0.4)
-
-    train_X = train[['pos_x', 'pos_y']]
-    train_target = train[['target']]
-
-    test_X = test[['pos_x', 'pos_y']]
-    test_target = test[['target']]
-
-    # SCALE THE FEATURES
-    scaler_x = MinMaxScaler(feature_range=(0, 1))
-    scaler_target = MinMaxScaler(feature_range=(0, 1))
-
-    train_X = scaler_x.fit_transform(train_X)
-    train_target = scaler_target.fit_transform(train_target)
-
-    test_X = scaler_x.fit_transform(test_X)
-    test_target = scaler_target.fit_transform(test_target)
-
-    # FIND BEST MODEL
-    best_model = None
+def model_price_knn(train, predict, ks=[3, 4, 5]):
+    best_k = -1
+    rmses = []
     best_rmse = np.Infinity
 
-    rmse_val = []  # to store rmse values for different k
-    for K in k:
-        model = neighbors.KNeighborsRegressor(n_neighbors=K)
-        model.fit(train_X, train_target)  # fit the model
-        pred = model.predict(test_X)  # make prediction on test set
-        error = sqrt(mean_squared_error(test_target, pred))  # calculate rmse
-        rmse_val.append(error)  # store rmse values
+    for k in ks:
+        neighbors_model = KNeighborsRegressor(n_neighbors=k)
 
-        if (error < best_rmse):
-            best_model = model
+        X = train[LAT_LONG]
+        y = train[["target"]]
+        scores = cross_validate(
+            neighbors_model, X, y, cv=J_FOLD, scoring="neg_mean_squared_error"
+        )
+
+        error = np.sqrt(-np.mean(scores["test_score"]))
+        rmses.append(error)
+
+        if error < best_rmse:
             best_rmse = error
-            best_K = K
+            best_k = k
 
-    print("Best model with K=", best_K)
+    best_model = KNeighborsRegressor(n_neighbors=best_k)
+    X = train[LAT_LONG]
+    y = train[["target"]]
+    best_model.fit(X, y)
+    print("Best model with K =", best_k)
 
     # PREDICT
 
-    predict = scaler_x.fit_transform(predict)
+    predict = predict[LAT_LONG]
     prices = best_model.predict(predict)
 
-    return scaler_target.inverse_transform(prices), rmse_val
+    return prices, rmses, ks
