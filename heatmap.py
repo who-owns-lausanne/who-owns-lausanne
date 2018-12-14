@@ -10,59 +10,10 @@ def getMap():
     return folium.Map([46.524, 6.63], tiles="cartodbpositron", zoom_start=14)
 
 
-def circles_prices(rent_prices):
-    """Return map with circles for prices"""
-    min_price, max_price = np.quantile(rent_prices['CHF/m2'], q=(0.05, 0.90))
-    m = folium.Map([46.524, 6.63], tiles="cartodbpositron", zoom_start=14)
+def missing_values(geodata):  # USED
+    """Given geoJSON file, return a map that show missing values."""
 
-    def add_circle(map_, lat, long, price, min_price, max_price):
-        color_rgb = cm.RdYlGn(
-            1.0 - (price - min_price) / (max_price - min_price))
-        color_hex = colors.to_hex(color_rgb, keep_alpha=False)
-
-        # Marker wants first the N coordinate and then E
-        folium.CircleMarker(
-            (lat, long),
-            radius=5,
-            fill_color=color_hex,
-            weight=0,
-            fill_opacity=0.8,
-            tooltip=price,
-        ).add_to(map_)
-
-    rent_prices.apply(lambda r: add_circle(
-        m, r['lat'], r['long'], r['CHF/m2'], min_price, max_price), axis='columns')
-    return m
-
-
-def prices_per_parcels(prices):
-    """Given pandas dataframe with position and price, return heatmap with prices"""
     m = getMap()
-
-    rent_prices = prices.set_index("parc_num")
-
-    min_price, max_price = np.quantile(rent_prices["CHF/m2"], q=(0.05, 0.90))
-    colormap = cmb.linear.RdYlGn_06.scale(min_price, max_price)
-
-    # invert colors
-    colormap.colors = colormap.colors[::-1]
-    colormap.caption = "Rent prices in CHF/m2"
-
-    def style_function(feature):
-        return {"stroke": False, "fillColor": colormap(feature['properties']['CHF/m2']), "fillOpacity": 0.75}
-
-    folium.GeoJson(prices._to_geo(), style_function=style_function).add_to(m)
-    m.add_child(colormap)
-
-    return m
-
-
-
-
-def heatmap_nan(map_data):
-    """Given JSON file with position and price, return heatmap with prices"""
-
-    map = getMap()
 
     def style_function(feature):
         """Returns color red for missing values, blue for valid."""
@@ -76,13 +27,14 @@ def heatmap_nan(map_data):
         }
 
     geo_fol = folium.GeoJson(
-        map_data, style_function=style_function)
+        geodata, style_function=style_function)
 
-    map.add_child(geo_fol)
-    return map
+    m.add_child(geo_fol)
+    return m
 
 
-def heatmap_category(parcelles, owners_categories):
+def by_owners_category(parcelles, owners_categories):  # USED
+    """Return a map where different categories parcelles have different colors."""
     m = getMap()
 
     def style_function(feature):
@@ -114,7 +66,7 @@ def heatmap_category(parcelles, owners_categories):
     return m
 
 
-def heatmap_all_rents(rents, quartiers):
+def marker_rents_with_quartiers(rents, quartiers):  # USED
     """draw a map showing the location of each vacancy, and the quartiers borders"""
 
     def add_maker(m, position, chf_m2):
@@ -129,9 +81,9 @@ def heatmap_all_rents(rents, quartiers):
     return m
 
 
-def heatmap_all_rents_by_quartiers(rents, quartiers):
-
-    def add_maker(m, position, quartier):
+def circles_rents(rents, quartiers):  # USED
+    """Return a map where rents in the same quartiers have same colors"""
+    def add_circle(m, position, quartier):
         lat = position[1]
         long = position[0]
 
@@ -146,7 +98,84 @@ def heatmap_all_rents_by_quartiers(rents, quartiers):
     m = getMap()
     folium.GeoJson(quartiers).add_to(m)
 
-    rents.apply(lambda row: add_maker(
+    rents.apply(lambda row: add_circle(
         m, row['position'], row['quartier']), axis='columns')
 
+    return m
+
+
+def circles_prices(rent_prices):  # USED
+    """Return map with different circles color for different rent price"""
+    min_price, max_price = np.quantile(rent_prices['CHF/m2'], q=(0.05, 0.90))
+    m = folium.Map([46.524, 6.63], tiles="cartodbpositron", zoom_start=14)
+
+    def add_circle(map_, lat, long, price, min_price, max_price):
+        color_rgb = cm.RdYlGn(
+            1.0 - (price - min_price) / (max_price - min_price))
+        color_hex = colors.to_hex(color_rgb, keep_alpha=False)
+
+        # Marker wants first the N coordinate and then E
+        folium.CircleMarker(
+            (lat, long),
+            radius=5,
+            fill_color=color_hex,
+            weight=0,
+            fill_opacity=0.8,
+            tooltip=price,
+        ).add_to(map_)
+
+    rent_prices.apply(lambda r: add_circle(
+        m, r['lat'], r['long'], r['CHF/m2'], min_price, max_price), axis='columns')
+    return m
+
+
+def parcelles_prices(prices):  # USED
+    """Return a heatmap where different parcelle prices have different colors"""
+    m = getMap()
+
+    rent_prices = prices.set_index("parc_num")
+
+    min_price, max_price = np.quantile(rent_prices["CHF/m2"], q=(0.05, 0.90))
+    colormap = cmb.linear.RdYlGn_06.scale(min_price, max_price)
+
+    # invert colors
+    colormap.colors = colormap.colors[::-1]
+    colormap.caption = "Rent prices in CHF/m2"
+
+    def style_function(feature):
+        return {"stroke": False, "fillColor": colormap(feature['properties']['CHF/m2']), "fillOpacity": 0.75}
+
+    folium.GeoJson(prices._to_geo(), style_function=style_function).add_to(m)
+    m.add_child(colormap)
+
+    return m
+
+
+def parcelles_prices_by_quartiers(parcelles):  # USED
+    """Return heatmap of parcelles prices by quartiers"""
+
+    def style_function_quartiers(feature):
+
+        min_price, max_price = np.quantile(parcelles["CHF/m2"], q=(0.05, 0.90))
+
+        colormap = cmb.linear.RdYlGn_06.scale(min_price, max_price)
+
+        # invert colors
+        colormap.colors = colormap.colors[::-1]
+        colormap.caption = "Rent price by quartiers"
+
+        quartier_name = feature['properties']['Name']
+        if (quartier_name == '90 - Zones foraines'):
+            price = 0
+        else:
+            price = parcelles[parcelles['Name'] ==
+                              quartier_name]['CHF/m2'].values[0]
+
+        return {"stroke": False, "fillColor": colormap(price), "fillOpacity": 0.75}
+
+    m = getMap()
+    folium.GeoJson(parcelles._to_geo(),
+                   style_function=style_function_quartiers,
+                   tooltip=folium.GeoJsonTooltip(['CHF/m2', 'Name'])
+                   ).add_to(m)
     return m
