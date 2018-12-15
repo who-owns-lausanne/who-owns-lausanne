@@ -7,3 +7,4 @@ scraping/tutti/tutti
 __pycache__/
 *.csv
 export/*.html
+export/*.svg
