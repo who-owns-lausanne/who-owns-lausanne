@@ -6,23 +6,23 @@ from matplotlib import colors, cm
 import branca.colormap as cmb
 
 OWNERSHIP_COLORS = {
-    "coop": "#ffffb3",
-    "société": "#fb8072",
-    "public": "#b3de69",
-    "private": "#8dd3c7",
-    "PPE": "#fdb462",
-    "pension": "#bebada",
-    "fondation/association": "#80b1d3",
+        'coop': 'yellow',
+        'société' : 'red',
+        'public' : 'green',
+        'private': 'blue',
+        'PPE': 'orange',
+        'pension': 'purple',
+        'fondation/association' : 'brown'
 }
 
 OPACITY = 0.75
 
 
 def getMap():
-    return folium.Map([46.524, 6.63], tiles="cartodbpositron", zoom_start=13)
+    return folium.Map([46.524, 6.63], tiles="cartodbpositron", zoom_start=14)
 
 
-def missing_values(geodata):  # USED
+def missing_values(geodata):
     """Given geoJSON file, return a map that show missing values."""
 
     m = getMap()
@@ -42,30 +42,27 @@ def missing_values(geodata):  # USED
     return m
 
 
-def by_owners_category(parcelles, owners_categories):  # USED
+def by_owners_category(parcelles, parcels_categories):
     """Return a map where different categories parcelles have different colors."""
     m = getMap()
 
     def style_function(feature):
-        owner = feature["properties"]["owner"]
-        cat = owners_categories.loc[owner][0]
+        parc_num = feature["properties"]["parc_num"]
+        cat = parcels_categories.loc[parc_num][0]
 
         return {
             "stroke": False,
             "fillColor": OWNERSHIP_COLORS[cat],
-            "fillOpacity": OPACITY,
         }
 
     folium.GeoJson(
         parcelles,
         style_function=style_function,
-        # show the owner at hover
-        # tooltip=folium.GeoJsonTooltip(["owner"]),
     ).add_to(m)
     return m
 
 
-def marker_rents_with_quartiers(rents, quartiers):  # USED
+def marker_rents_with_quartiers(rents, quartiers):
     """draw a map showing the location of each vacancy, and the quartiers borders"""
 
     def add_marker(m, position, chf_m2):
@@ -81,7 +78,7 @@ def marker_rents_with_quartiers(rents, quartiers):  # USED
     return m
 
 
-def circles_rents(rents, quartiers):  # USED
+def circles_rents(rents, quartiers):
     """Return a map where rents in the same quartiers have same colors"""
 
     def add_circle(m, position, quartier):
@@ -113,7 +110,7 @@ def rent_price_colormap(prices, title):
     return colormap
 
 
-def circles_prices(rent_prices):  # USED
+def circles_prices(rent_prices):
     """Return map with different circles color for different rent price"""
     colormap = rent_price_colormap(
         rent_prices["CHF/m2"], "Listed offers with prices in CHF/m^2"
@@ -138,7 +135,7 @@ def circles_prices(rent_prices):  # USED
     return m
 
 
-def parcelles_prices(prices):  # USED
+def parcelles_prices(prices):
     """Return a heatmap where different parcelle prices have different colors"""
 
     rent_prices = prices.set_index("parc_num")
@@ -148,7 +145,11 @@ def parcelles_prices(prices):  # USED
 
     def style_function(feature):
         price = feature["properties"]["CHF/m2"]
-        return {"stroke": False, "fillColor": colormap(price), "fillOpacity": OPACITY}
+        return {
+                "stroke": False,
+                "fillColor": colormap(price),
+                "fillOpacity": OPACITY
+        }
 
     m = getMap()
     folium.GeoJson(
@@ -160,7 +161,7 @@ def parcelles_prices(prices):  # USED
     return m
 
 
-def parcelles_prices_by_quartiers(parcelles):  # USED
+def parcelles_prices_by_quartiers(parcelles):
     """Return heatmap of parcelles prices by quartiers"""
 
     colormap = rent_price_colormap(
@@ -174,7 +175,11 @@ def parcelles_prices_by_quartiers(parcelles):  # USED
         else:
             price = parcelles[parcelles["Name"] == quartier_name]["CHF/m2"].values[0]
 
-        return {"stroke": False, "fillColor": colormap(price), "fillOpacity": OPACITY}
+        return {
+                "stroke": False,
+                "fillColor": colormap(price),
+                "fillOpacity": OPACITY
+               }
 
     m = getMap()
     folium.GeoJson(
