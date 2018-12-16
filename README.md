@@ -16,6 +16,9 @@ owners and high cost of rents. Furthermore, we try to understand the data from a
 political point of view. Thereby we hope to improve the transparency of the real
 estate situation and its effects – _for the good of our society._
 
+Our results are narrated as a data story on the website
+[who-owns-lausanne.github.io](http://who-owns-lausanne.github.io)
+
 ## Repo contents
 
 This repository contains all the code and documentation about the project "who
