@@ -227,7 +227,6 @@ we might want to use one of them:
     - wrote text/concept for project proposal
     - scraped Homegate for rent offers
     - linear regression on distance and surface
-    - idea for using nearest neighbours algorithm
     - designed website
     - wrote data-story
 

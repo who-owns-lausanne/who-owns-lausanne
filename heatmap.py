@@ -196,9 +196,26 @@ def get_choropleth(parcelles, parcels_categories):
         parc_num = feature["properties"]["parc_num"]
         cat = parcels_categories.loc[parc_num][0]
 
-        return {"stroke": False, "fillColor": OWNERSHIP_COLORS[cat]}
+        return {
+            "stroke": False,
+            "fillColor": OWNERSHIP_COLORS[cat],
+            "fillOpacity": OPACITY,
+        }
 
     return folium.GeoJson(parcelles, style_function=style_function)
+
+
+def quartier_boundaries(quartiers):
+    return folium.GeoJson(
+        quartiers,
+        name="Quartier boundaries",
+        tooltip=folium.GeoJsonTooltip(["Name"]),
+        style_function=lambda p: {
+            "fillOpacity": "0",
+            "color": "#5B698C",
+            "weight": "1",
+        },
+    )
 
 
 def by_owners_all_in_one(
@@ -227,16 +244,8 @@ def by_owners_all_in_one(
         tile_layer.add_to(layer2)
 
     # Add quartiers border.
-    folium.GeoJson(
-        quartiers,
-        name="Quartier boundaries",
-        tooltip=folium.GeoJsonTooltip(["Name"]),
-        style_function=lambda p: {
-            "fillOpacity": "0",
-            "color": "#5B698C",
-            "weight": "2",
-        },
-    ).add_to(layer2)
+    quartier_boundaries(quartiers).add_to(layer1)
+    quartier_boundaries(quartiers).add_to(layer2)
 
     folium.LayerControl(position="bottomright", collapsed=False).add_to(m)
 
@@ -283,15 +292,13 @@ def entropy_owners(parcelles, entropy):
     min_s, max_s = 1, np.quantile(entropy.values, q=0.95)
 
     def style_function(feature):
-        OPACITY = 0.4
-
         def entropy_color(entropy):
             rgb = cm.RdGy((entropy - min_s) / (max_s - min_s))
             return colors.rgb2hex(rgb)
 
         parc_num = feature["properties"]["parc_num"]
         s = entropy[parc_num]
-        return {"stroke": False, "fillColor": entropy_color(s), "fillOpacity": OPACITY}
+        return {"stroke": False, "fillColor": entropy_color(s), "fillOpacity": 0.4}
 
     folium.GeoJson(parcelles, style_function=style_function).add_to(m)
 
