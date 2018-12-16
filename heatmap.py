@@ -142,7 +142,7 @@ def circles_prices(rent_prices):
 
 def __parcelles_prices(layer, prices):
     colormap = rent_price_colormap(
-        prices["CHF/m2"], "rent prices in CHF/m2"
+        prices["CHF/m2"], "Rent prices in CHF/m2"
     )
 
     def style_function(feature):
@@ -247,10 +247,6 @@ def by_owners_all_in_one(parcelles,
         overlay=False
     ).add_to(m)
 
-    get_choropleth(
-        parcelles, parcels_categories_denoised
-    ).add_to(layer2)
-
     if (tiles):
         tile_layer = folium.TileLayer('cartodbpositron')
         tile_layer.add_to(layer2)
@@ -306,7 +302,7 @@ def by_rents_all_in_one(rent_prices, prices_by_quartier, parcelles_prices):
     tile_layer = folium.TileLayer('cartodbpositron')
     tile_layer.add_to(layer3)
 
-    m.add_child(colormap) # Does not work
+    m.add_child(colormap)  # Does not work
     # Add Legend to switch between layer
     folium.LayerControl(
         position='bottomright',
