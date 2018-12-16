@@ -58,14 +58,6 @@ owns Lausanne". The following directory structure helps you while exploring:
   composition of the categories of owners. As mentioned before, this is highly
   related to the dependence of prices and location.
 
-- **Who are the richest private real estate owners? How are they involved in
-  local/cantonal politics?** Consider for example the _Flon_ in the centre of
-  Lausanne. Most buildings there are indirectly owned by a company called
-  "Mobimo AG". Georges Theiler is a member of their administrative board and at
-  the same time he's active in the liberal democratic party of Switzerland
-  (_PLR_). Knowing the prices and owners of each building will allow us to
-  unveil the major powers at play in Lausanne real-estate market.
-
 ##### Analysis by _quartier_
 
 Our analysis will use the _quartiers_ (districts) of the city of Lausanne as
