@@ -14,6 +14,9 @@ For export rendered maps, tables, etc. to
  - circles_prices.html
  - parcelles_prices.html
  - parcelles_prices_by_quartiers.html
+ - by_owners_category_denoised.html
+ - by_owners_category_entropy.html
+ - by_owners_all_in_one.html
 
 
 # Future

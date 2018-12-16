@@ -6,20 +6,20 @@ from matplotlib import colors, cm
 import branca.colormap as cmb
 
 OWNERSHIP_COLORS = {
-        'coop': 'yellow',
-        'société' : 'red',
-        'public' : 'green',
-        'private': 'blue',
-        'PPE': 'orange',
-        'pension': 'purple',
-        'fondation/association' : 'brown'
+    'coop': 'yellow',
+    'société': 'red',
+    'public': 'green',
+    'private': 'blue',
+    'PPE': 'orange',
+    'pension': 'purple',
+    'fondation/association': 'brown'
 }
 
 OPACITY = 0.75
 
 
-def getMap():
-    return folium.Map([46.524, 6.63], tiles="cartodbpositron", zoom_start=14)
+def getMap(tiles="cartodbpositron"):
+    return folium.Map([46.524, 6.63], tiles=tiles, zoom_start=14)
 
 
 def missing_values(geodata):
@@ -42,13 +42,13 @@ def missing_values(geodata):
     return m
 
 
-def by_owners_category(parcelles, parcels_categories):
+def by_owners_category(parcelles, parcelles_categories):
     """Return a map where different categories parcelles have different colors."""
     m = getMap()
 
     def style_function(feature):
         parc_num = feature["properties"]["parc_num"]
-        cat = parcels_categories.loc[parc_num][0]
+        cat = parcelles_categories.loc[parc_num][0]
 
         return {
             "stroke": False,
@@ -146,9 +146,9 @@ def parcelles_prices(prices):
     def style_function(feature):
         price = feature["properties"]["CHF/m2"]
         return {
-                "stroke": False,
-                "fillColor": colormap(price),
-                "fillOpacity": OPACITY
+            "stroke": False,
+            "fillColor": colormap(price),
+            "fillOpacity": OPACITY
         }
 
     m = getMap()
@@ -173,13 +173,14 @@ def parcelles_prices_by_quartiers(parcelles):
         if quartier_name == "90 - Zones foraines":
             price = 0
         else:
-            price = parcelles[parcelles["Name"] == quartier_name]["CHF/m2"].values[0]
+            price = parcelles[parcelles["Name"] ==
+                              quartier_name]["CHF/m2"].values[0]
 
         return {
-                "stroke": False,
-                "fillColor": colormap(price),
-                "fillOpacity": OPACITY
-               }
+            "stroke": False,
+            "fillColor": colormap(price),
+            "fillOpacity": OPACITY
+        }
 
     m = getMap()
     folium.GeoJson(
@@ -188,4 +189,59 @@ def parcelles_prices_by_quartiers(parcelles):
         tooltip=folium.GeoJsonTooltip(["Name", "CHF/m2"]),
     ).add_to(m)
     m.add_child(colormap)
+    return m
+
+
+def get_choropleth(parcelles, parcels_categories):
+    def style_function(feature):
+        parc_num = feature["properties"]["parc_num"]
+        cat = parcels_categories.loc[parc_num][0]
+
+        return {
+            "stroke": False,
+            "fillColor": OWNERSHIP_COLORS[cat],
+        }
+
+    return folium.GeoJson(
+        parcelles,
+        style_function=style_function,
+    )
+
+
+def by_owners_all_in_one(parcelles,
+                         parcels_categories,
+                         parcels_categories_denoised, tiles=True):
+    """Return a map where different categories parcelles have different colors."""
+
+    m = getMap(tiles=None)
+
+    layer1 = folium.map.FeatureGroup(
+        name='1. Distribution of owners type',
+        overlay=False
+    ).add_to(m)
+    get_choropleth(
+        parcelles, parcels_categories
+    ).add_to(layer1)
+
+    if (tiles):
+        tile_layer = folium.TileLayer('cartodbpositron')
+        tile_layer.add_to(layer1)
+
+    layer2 = folium.map.FeatureGroup(
+        name='2. Distribution of owners type denoised',
+        overlay=False
+    ).add_to(m)
+    get_choropleth(
+        parcelles, parcels_categories_denoised
+    ).add_to(layer2)
+
+    if (tiles):
+        tile_layer = folium.TileLayer('cartodbpositron')
+        tile_layer.add_to(layer2)
+
+    folium.LayerControl(
+        position='bottomright',
+        collapsed=False
+    ).add_to(m)
+
     return m
