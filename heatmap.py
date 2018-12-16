@@ -65,15 +65,15 @@ def by_owners_category(parcelles, parcelles_categories):
 def marker_rents_with_quartiers(rents, quartiers):
     """draw a map showing the location of each vacancy, and the quartiers borders"""
 
-    def add_marker(m, position, chf_m2):
+    def add_marker(m, position):
         lat = position[1]
         long = position[0]
-        folium.Marker((lat, long), tooltip=chf_m2).add_to(m)
+        folium.Marker((lat, long)).add_to(m)
 
     m = getMap()
     folium.GeoJson(quartiers).add_to(m)
     rents.apply(
-        lambda row: add_marker(m, row["position"], row["CHF/m2"]), axis="columns"
+        lambda row: add_marker(m, row["position"]), axis="columns"
     )
     return m
 
@@ -225,7 +225,7 @@ def get_choropleth(parcelles, parcels_categories):
 
 def by_owners_all_in_one(parcelles,
                          parcels_categories,
-                         parcels_categories_denoised, tiles=True):
+                         parcels_categories_denoised, quartiers, tiles=True):
     """Return a map where different categories parcelles have different colors."""
 
     m = getMap(tiles=None)
@@ -246,10 +246,15 @@ def by_owners_all_in_one(parcelles,
         name='2. Distribution of owners type denoised',
         overlay=False
     ).add_to(m)
+    get_choropleth(
+        parcelles, parcels_categories_denoised
+    ).add_to(layer2)
 
     if (tiles):
         tile_layer = folium.TileLayer('cartodbpositron')
         tile_layer.add_to(layer2)
+
+    folium.GeoJson(quartiers, name='Quartier boundaries').add_to(m)
 
     folium.LayerControl(
         position='bottomright',
@@ -257,17 +262,6 @@ def by_owners_all_in_one(parcelles,
     ).add_to(m)
 
     return m
-
-
-def __test(layerx):
-    folium.CircleMarker(
-        (46.531976, 6.649698),
-        radius=5,
-        fill_color='green',
-        weight=0,
-        tooltip=5,
-        fill_opacity=1,
-    ).add_to(layerx)
 
 
 def by_rents_all_in_one(rent_prices, prices_by_quartier, parcelles_prices):
