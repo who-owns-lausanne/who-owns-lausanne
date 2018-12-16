@@ -142,7 +142,7 @@ def circles_prices(rent_prices):
 
 def __parcelles_prices(layer, prices):
     colormap = rent_price_colormap(
-        prices["CHF/m2"], "rent prices in CHF/m2""
+        prices["CHF/m2"], "rent prices in CHF/m2"
     )
 
     def style_function(feature):
