@@ -6,20 +6,20 @@ from matplotlib import colors, cm
 import branca.colormap as cmb
 
 OWNERSHIP_COLORS = {
-    'coop': 'yellow',
-    'société': 'red',
-    'public': 'green',
-    'private': 'blue',
-    'PPE': 'orange',
-    'pension': 'purple',
-    'fondation/association': 'brown'
+    "coop": "#ffffb3",
+    "société": "#fb8072",
+    "public": "#b3de69",
+    "private": "#8dd3c7",
+    "PPE": "#fdb462",
+    "pension": "#bebada",
+    "fondation/association": "#80b1d3",
 }
 
 OPACITY = 0.75
 
 
 def getMap(tiles="cartodbpositron"):
-    return folium.Map([46.524, 6.63], tiles=tiles, zoom_start=14)
+    return folium.Map([46.524, 6.63], tiles=tiles, zoom_start=13)
 
 
 def missing_values(geodata):
@@ -53,12 +53,10 @@ def by_owners_category(parcelles, parcelles_categories):
         return {
             "stroke": False,
             "fillColor": OWNERSHIP_COLORS[cat],
+            "fillOpacity": OPACITY,
         }
 
-    folium.GeoJson(
-        parcelles,
-        style_function=style_function,
-    ).add_to(m)
+    folium.GeoJson(parcelles, style_function=style_function).add_to(m)
     return m
 
 
@@ -72,9 +70,7 @@ def marker_rents_with_quartiers(rents, quartiers):
 
     m = getMap()
     folium.GeoJson(quartiers).add_to(m)
-    rents.apply(
-        lambda row: add_marker(m, row["position"]), axis="columns"
-    )
+    rents.apply(lambda row: add_marker(m, row["position"]), axis="columns")
     return m
 
 
@@ -141,17 +137,11 @@ def circles_prices(rent_prices):
 
 
 def __parcelles_prices(layer, prices):
-    colormap = rent_price_colormap(
-        prices["CHF/m2"], "Rent prices in CHF/m2"
-    )
+    colormap = rent_price_colormap(prices["CHF/m2"], "Rent prices in CHF/m2")
 
     def style_function(feature):
         price = feature["properties"]["CHF/m2"]
-        return {
-            "stroke": False,
-            "fillColor": colormap(price),
-            "fillOpacity": OPACITY
-        }
+        return {"stroke": False, "fillColor": colormap(price), "fillOpacity": OPACITY}
 
     folium.GeoJson(
         prices._to_geo(),
@@ -172,20 +162,14 @@ def parcelles_prices(prices):
 
 
 def __parcelles_prices_by_quartiers(layer, parcelles):
-
     def style_function_quartiers(feature):
         quartier_name = feature["properties"]["Name"]
         if quartier_name == "90 - Zones foraines":
             price = 0
         else:
-            price = parcelles[parcelles["Name"] ==
-                              quartier_name]["CHF/m2"].values[0]
+            price = parcelles[parcelles["Name"] == quartier_name]["CHF/m2"].values[0]
 
-        return {
-            "stroke": False,
-            "fillColor": colormap(price),
-            "fillOpacity": OPACITY
-        }
+        return {"stroke": False, "fillColor": colormap(price), "fillOpacity": OPACITY}
 
     folium.GeoJson(
         parcelles._to_geo(),
@@ -212,60 +196,49 @@ def get_choropleth(parcelles, parcels_categories):
         parc_num = feature["properties"]["parc_num"]
         cat = parcels_categories.loc[parc_num][0]
 
-        return {
-            "stroke": False,
-            "fillColor": OWNERSHIP_COLORS[cat],
-        }
+        return {"stroke": False, "fillColor": OWNERSHIP_COLORS[cat]}
 
-    return folium.GeoJson(
-        parcelles,
-        style_function=style_function,
-    )
+    return folium.GeoJson(parcelles, style_function=style_function)
 
 
-def by_owners_all_in_one(parcelles,
-                         parcels_categories,
-                         parcels_categories_denoised, quartiers, tiles=True):
+def by_owners_all_in_one(
+    parcelles, parcels_categories, parcels_categories_denoised, quartiers, tiles=True
+):
     """Return a map where different categories parcelles have different colors."""
 
     m = getMap(tiles=None)
 
     layer1 = folium.map.FeatureGroup(
-        name='1. Distribution of owners type',
-        overlay=False
+        name="1. Distribution of owners type", overlay=False
     ).add_to(m)
-    get_choropleth(
-        parcelles, parcels_categories
-    ).add_to(layer1)
+    get_choropleth(parcelles, parcels_categories).add_to(layer1)
 
-    if (tiles):
-        tile_layer = folium.TileLayer('cartodbpositron')
+    if tiles:
+        tile_layer = folium.TileLayer("cartodbpositron")
         tile_layer.add_to(layer1)
 
     layer2 = folium.map.FeatureGroup(
-        name='2. Distribution of owners type denoised',
-        overlay=False
+        name="2. Distribution of owners type denoised", overlay=False
     ).add_to(m)
-    get_choropleth(
-        parcelles, parcels_categories_denoised
-    ).add_to(layer2)
+    get_choropleth(parcelles, parcels_categories_denoised).add_to(layer2)
 
-    if (tiles):
-        tile_layer = folium.TileLayer('cartodbpositron')
+    if tiles:
+        tile_layer = folium.TileLayer("cartodbpositron")
         tile_layer.add_to(layer2)
 
     # Add quartiers border.
-    folium.GeoJson(quartiers,
-                   name='Quartier boundaries',
-                   tooltip=folium.GeoJsonTooltip(["Name"]),
-                   style_function=lambda p: {
-                       'fillOpacity': '0', 'color': '#5B698C', 'weight': '2'}
-                   ).add_to(layer2)
+    folium.GeoJson(
+        quartiers,
+        name="Quartier boundaries",
+        tooltip=folium.GeoJsonTooltip(["Name"]),
+        style_function=lambda p: {
+            "fillOpacity": "0",
+            "color": "#5B698C",
+            "weight": "2",
+        },
+    ).add_to(layer2)
 
-    folium.LayerControl(
-        position='bottomright',
-        collapsed=False
-    ).add_to(m)
+    folium.LayerControl(position="bottomright", collapsed=False).add_to(m)
 
     return m
 
@@ -276,38 +249,30 @@ def by_rents_all_in_one(rent_prices, prices_by_quartier, parcelles_prices):
     m = getMap(tiles=None)
 
     # Layer 1 - Rent prices
-    layer1 = folium.map.FeatureGroup(
-        name='Rent prices',
-        overlay=False
-    ).add_to(m)
+    layer1 = folium.map.FeatureGroup(name="Rent prices", overlay=False).add_to(m)
     colormap = __circles_prices(layer1, rent_prices)
-    tile_layer = folium.TileLayer('cartodbpositron')
+    tile_layer = folium.TileLayer("cartodbpositron")
     tile_layer.add_to(layer1)
 
     # Layer 2 - Rents per quartier
     layer2 = folium.map.FeatureGroup(
-        name='Rent prices by quartier',
-        overlay=False
+        name="Rent prices by quartier", overlay=False
     ).add_to(m)
     colormap = __parcelles_prices_by_quartiers(layer2, prices_by_quartier)
-    tile_layer = folium.TileLayer('cartodbpositron')
+    tile_layer = folium.TileLayer("cartodbpositron")
     tile_layer.add_to(layer2)
 
     # Layer 3 - All parcelles with prices
     layer3 = folium.map.FeatureGroup(
-        name='Prices for each parcelle',
-        overlay=False
+        name="Prices for each parcelle", overlay=False
     ).add_to(m)
     colormap = __parcelles_prices(layer3, parcelles_prices)
-    tile_layer = folium.TileLayer('cartodbpositron')
+    tile_layer = folium.TileLayer("cartodbpositron")
     tile_layer.add_to(layer3)
 
     m.add_child(colormap)  # Does not work
     # Add Legend to switch between layer
-    folium.LayerControl(
-        position='bottomright',
-        collapsed=False
-    ).add_to(m)
+    folium.LayerControl(position="bottomright", collapsed=False).add_to(m)
 
     return m
 
@@ -315,7 +280,7 @@ def by_rents_all_in_one(rent_prices, prices_by_quartier, parcelles_prices):
 def entropy_owners(parcelles, entropy):
 
     m = getMap()
-    min_s, max_s = 1, np.quantile(entropy.values, q=.95)
+    min_s, max_s = 1, np.quantile(entropy.values, q=0.95)
 
     def style_function(feature):
         OPACITY = 0.4
@@ -324,24 +289,17 @@ def entropy_owners(parcelles, entropy):
             rgb = cm.RdGy((entropy - min_s) / (max_s - min_s))
             return colors.rgb2hex(rgb)
 
-        parc_num = feature['properties']['parc_num']
+        parc_num = feature["properties"]["parc_num"]
         s = entropy[parc_num]
-        return {
-            'stroke': False,
-            'fillColor': entropy_color(s),
-            'fillOpacity': OPACITY
-        }
+        return {"stroke": False, "fillColor": entropy_color(s), "fillOpacity": OPACITY}
 
-    folium.GeoJson(
-        parcelles,
-        style_function=style_function,
-    ).add_to(m)
+    folium.GeoJson(parcelles, style_function=style_function).add_to(m)
 
     # colormap
     colormap = cmb.linear.RdGy_11.scale(min_s, max_s)
 
     # invert colors
-    colormap.caption = 'Entropy map of owners type from low to high'
+    colormap.caption = "Entropy map of owners type from low to high"
 
     m.add_child(colormap)
 
