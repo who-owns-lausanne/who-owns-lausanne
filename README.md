@@ -25,11 +25,13 @@ owns Lausanne". The following directory structure helps you while exploring:
   after they have been acquired.
 
 - `/data`: Load all the data in this folder. All the scripts expect the data to
-  be contained there. This folder has the following subfolders: `maps` contains
-  the geographical data, `raw`	contains scraped data before it is cleaned,
-  `owners` contains the data about the ownership of parcels, `rents` contains
-  the data about current rent announcements, and `xlsx_commune` features some
-  spreadsheets from the statistical office of the city of Lausanne.
+  be contained there. This folder has the following subfolders:
+    - `maps` contains the geographical data
+    - `raw` contains scraped data before it is cleaned,
+    - `owners` contains the data about the ownership of parcels
+    - `rents` contains the data about current rent announcements
+    - `xlsx_commune` features some spreadsheets from the statistical office of
+        the city of Lausanne.
 
 - `/scraping`: Contains all scripts needed to get data from the different web
   services.
@@ -68,7 +70,8 @@ owns Lausanne". The following directory structure helps you while exploring:
 
 Our analysis will use the _quartiers_ (districts) of the city of Lausanne as
 a natural spatial unit.
-Lausanne is divided, for geographical and historical reasons, in [18 _quartiers_](https://www.lausanne.ch/officiel/statistique/quartiers/presentation-des-quartiers.html).
+Lausanne is divided, for geographical and historical reasons, in
+[18 _quartiers_][quartier].
 From a data science position, one might say that this
 unit is far too large and one might be inclined to use a finer grid in order to perform the analysis.
 
@@ -80,12 +83,13 @@ the name of the _quartier_. The same should be true _if someone asks, where in
 the city the rents are affordable_. Therefore, we will use this conventional
 division to perform our analysis and to showcase our story.
 
+[quartier]:https://www.lausanne.ch/officiel/statistique/quartiers/presentation-des-quartiers.html
+
 ## Story outline
 
 We want to turn this project into a story that will be told on a nicely
 designed webpage. The story will take the perspective of someone trying to find
-accommodation in Lausanne, think of a newly arrived student. Maybe we will even
-invent an imaginary character and tell the story from his/her point of view.
+accommodation in Lausanne, think of a newly arrived student.
 
 Driven by the difficulties of finding an affordable home in Lausanne, we start
 asking the question: Who owns all this real estate? And why are the rents in
@@ -220,8 +224,15 @@ we might want to use one of them:
   be interpreted for our analysis and what we could deduce from it for our
   story.
 
-## Project organisation
+## Individual Contribution
 
-We started a new project on a shared [Todoist](https://todoist.com/). This is
-now the place where we manage all the deadlines, issues, assignements and
-discussions.
+- __Jonathan Besomi__:
+- __Yann Bolliger__:
+- __Pietro Carta__:
+    - sourced the cadastral dataset from the Lausanne office of cadastre
+    - scraped the missing details of the cadastral dataset
+    - explored the cadastral dataset with QGIS 
+    - scraped anibis for rent offers
+    - matched rent offers to geographical positions and owners
+    - linear regression on price depending on owner type
+    - denoised the owner types map
