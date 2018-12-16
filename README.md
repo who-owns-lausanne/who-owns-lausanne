@@ -219,11 +219,15 @@ we might want to use one of them:
 ## Individual Contribution
 
 - __Jonathan Besomi__:
+      - responsible for the Jupyter Notebook
+      - scraped tutti.ch for rent offers
+      - price extrapolation with K-nearest neighbours on parcelles
+
 - __Yann Bolliger__:
 - __Pietro Carta__:
     - sourced the cadastral dataset from the Lausanne office of cadastre
     - scraped the missing details of the cadastral dataset
-    - explored the cadastral dataset with QGIS 
+    - explored the cadastral dataset with QGIS
     - scraped anibis for rent offers
     - matched rent offers to geographical positions and owners
     - linear regression on price depending on owner type
