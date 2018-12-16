@@ -254,7 +254,13 @@ def by_owners_all_in_one(parcelles,
         tile_layer = folium.TileLayer('cartodbpositron')
         tile_layer.add_to(layer2)
 
-    folium.GeoJson(quartiers, name='Quartier boundaries').add_to(m)
+    # Add quartiers border.
+    folium.GeoJson(quartiers,
+                   name='Quartier boundaries',
+                   tooltip=folium.GeoJsonTooltip(["Name"]),
+                   style_function=lambda p: {
+                       'fillOpacity': '0', 'color': '#5B698C', 'weight': '2'}
+                   ).add_to(layer2)
 
     folium.LayerControl(
         position='bottomright',
@@ -302,5 +308,41 @@ def by_rents_all_in_one(rent_prices, prices_by_quartier, parcelles_prices):
         position='bottomright',
         collapsed=False
     ).add_to(m)
+
+    return m
+
+
+def entropy_owners(parcelles, entropy):
+
+    m = getMap()
+    min_s, max_s = 1, np.quantile(entropy.values, q=.95)
+
+    def style_function(feature):
+        OPACITY = 0.4
+
+        def entropy_color(entropy):
+            rgb = cm.RdGy((entropy - min_s) / (max_s - min_s))
+            return colors.rgb2hex(rgb)
+
+        parc_num = feature['properties']['parc_num']
+        s = entropy[parc_num]
+        return {
+            'stroke': False,
+            'fillColor': entropy_color(s),
+            'fillOpacity': OPACITY
+        }
+
+    folium.GeoJson(
+        parcelles,
+        style_function=style_function,
+    ).add_to(m)
+
+    # colormap
+    colormap = cmb.linear.RdGy_11.scale(min_s, max_s)
+
+    # invert colors
+    colormap.caption = 'Entropy map of owners type from low to high'
+
+    m.add_child(colormap)
 
     return m
