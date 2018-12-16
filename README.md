@@ -216,7 +216,7 @@ we might want to use one of them:
   be interpreted for our analysis and what we could deduce from it for our
   story.
 
-## Individual Contribution
+## Individual Contributions
 
 - __Jonathan Besomi__:
    - responsible for the Jupyter Notebook
@@ -230,6 +230,7 @@ we might want to use one of them:
     - idea for using nearest neighbours algorithm
     - designed website
     - wrote data-story
+
 - __Pietro Carta__:
     - sourced the cadastral dataset from the Lausanne office of cadastre
     - scraped the missing details of the cadastral dataset
