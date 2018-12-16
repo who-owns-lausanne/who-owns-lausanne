@@ -6,4 +6,3 @@ scraping/homegate/html
 scraping/tutti/tutti
 __pycache__/
 *.csv
-export/*.svg
