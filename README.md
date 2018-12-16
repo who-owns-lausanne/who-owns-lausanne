@@ -58,7 +58,7 @@ owns Lausanne". The following directory structure helps you while exploring:
   composition of the categories of owners. As mentioned before, this is highly
   related to the dependence of prices and location.
 
-##### Analysis by _quartier_
+#### Analysis by _quartier_
 
 Our analysis will use the _quartiers_ (districts) of the city of Lausanne as
 a natural spatial unit.
@@ -106,7 +106,7 @@ Even though our datasets are not listed on the site
 swiss data". They come from official swiss administrations or swiss
 websites/webservices and they are **open to the public**.
 
-##### Cadastral data
+#### Cadastral data
 
 The basis for our analysis is the cadastral data which is published by the city
 of Lausanne on [map.lausanne.ch](https://map.lausanne.ch). It features
@@ -122,13 +122,13 @@ The cadastral dataset is available for free for research institutions. We
 contacted the _service du secrétariat général et cadastre_ of the city of
 Lausanne on Friday, 2 November. They gave us the access to their `ftp` server.
 
-##### Address data
+#### Address data
 
 We also need to convert addresses to coordinates at some point. There is luckily
 another cadastral layer of building addresses, provided by the Cadastral offic
 of Lausanne. It can again be found on the `ftp` server.
 
-##### Maps of the _quartiers_
+#### Maps of the _quartiers_
 
 To be able to capture the space-dependent behaviour of rent prices and ownership
 structure, we will need to aggregate our data by position. As said before, we
@@ -137,7 +137,7 @@ will use the official _quartiers_ delimitation of the city  of Lausanne. The
 map](https://www.google.com/maps/d/u/0/viewer?mid=1Fhi7wXjxdSfkNnZSwMysrh0JPQD2BLMF&ll=46.55355566379154%2C6.652336000000105&z=12)
 is hosted on Google Maps. It is possible to download it as a KML file.
 
-##### Rent prices
+#### Rent prices
 
 To collect data points on the cost of rent in Lausanne, we retrieved the current
 listings for rents from three websites:
@@ -151,12 +151,12 @@ available. Entries present in all datasets were detected and deduplicated.
 
 ## Implementation
 
-##### Sourcing the data
+#### Sourcing the data
 Getting our hands on the required data was already a challenging aspect of this
 project. Several scrapers were developed for this purpose. The Jupyter notebook
 describes the scraping and cleaning phase.
 
-##### Data pipeline
+#### Data pipeline
 
 The total datasets size is under 1 GB. We can therefore run all of our analysis
 on a single local machine.
@@ -168,7 +168,7 @@ coherent way in Python, we converted the ShapeFile and KML files to GeoJson by
 using the [QGIS software application](https://www.qgis.org/en/site/). Ad-Hoc
 parsers were needed for the rent offers data.
 
-##### Model
+#### Model
 
 The main analysis goal of this project is to determine how prices vary as a
 function of the ownership pattern of a _quartier_ and as a function of the
@@ -220,10 +220,16 @@ we might want to use one of them:
 
 - __Jonathan Besomi__:
 - __Yann Bolliger__:
+    - wrote text/concept for project proposal
+    - scraped Homegate for rent offers
+    - linear regression on distance and surface
+    - idea for using nearest neighbours algorithm
+    - designed website
+    - wrote data-story
 - __Pietro Carta__:
     - sourced the cadastral dataset from the Lausanne office of cadastre
     - scraped the missing details of the cadastral dataset
-    - explored the cadastral dataset with QGIS 
+    - explored the cadastral dataset with QGIS
     - scraped anibis for rent offers
     - matched rent offers to geographical positions and owners
     - linear regression on price depending on owner type
