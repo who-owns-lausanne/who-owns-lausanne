@@ -222,9 +222,10 @@ we might want to use one of them:
 ## Individual Contributions
 
 - __Jonathan Besomi__:
-   - responsible for the Jupyter Notebook
-   - scraped tutti.ch for rent offers
-   - price extrapolation with K-nearest neighbours on parcelles
+    - responsible for the Jupyter Notebook
+    - scraped tutti.ch for rent offers
+    - price extrapolation with K-nearest neighbours on parcelles
+    - will prepare the final presentation
 
 - __Yann Bolliger__:
     - wrote text/concept for project proposal
@@ -232,6 +233,7 @@ we might want to use one of them:
     - linear regression on distance and surface
     - designed website
     - wrote data-story
+    - will prepare the final presentation
 
 - __Pietro Carta__:
     - sourced the cadastral dataset from the Lausanne office of cadastre
