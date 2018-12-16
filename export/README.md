@@ -1,12 +1,8 @@
-# Export directory
+### Export directory
 
-For export rendered maps, tables, etc. to
+This folder contains all exported contents from the Jupyter Notebook used in the [website](https://who-owns-lausanne.github.io/).
 
-
-# OFFICIAL EXPORT FILENAME
-
-# Implemented and available
-
+#### Map filenames
  - missing_values.html
  - by_owners_category.html
  - marker_rents_with_quartiers.html
@@ -18,6 +14,5 @@ For export rendered maps, tables, etc. to
  - by_owners_all_in_one.html
  - by_rents_all_in_one.html
 
-
-# Future
- -
+#### Plots
+ - distance.svg 
