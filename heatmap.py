@@ -110,13 +110,12 @@ def rent_price_colormap(prices, title):
     return colormap
 
 
-def circles_prices(rent_prices):
-    """Return map with different circles color for different rent price"""
+def __circles_prices(layer, rent_prices):
     colormap = rent_price_colormap(
         rent_prices["CHF/m2"], "Listed offers with prices in CHF/m^2"
     )
 
-    def add_circle(map_, lat, long, price):
+    def add_circle(m, lat, long, price):
         # Marker wants first the N coordinate and then E
         folium.CircleMarker(
             (lat, long),
@@ -125,22 +124,25 @@ def circles_prices(rent_prices):
             weight=0,
             tooltip=price,
             fill_opacity=1,
-        ).add_to(map_)
+        ).add_to(m)
 
-    m = getMap()
     rent_prices.apply(
-        lambda r: add_circle(m, r["lat"], r["long"], r["CHF/m2"]), axis="columns"
+        lambda r: add_circle(layer, r["lat"], r["long"], r["CHF/m2"]), axis="columns"
     )
+    return colormap
+
+
+def circles_prices(rent_prices):
+    """Return map with different circles color for different rent price"""
+    m = getMap()
+    colormap = __circles_prices(m, rent_prices)
     m.add_child(colormap)
     return m
 
 
-def parcelles_prices(prices):
-    """Return a heatmap where different parcelle prices have different colors"""
-
-    rent_prices = prices.set_index("parc_num")
+def __parcelles_prices(layer, prices):
     colormap = rent_price_colormap(
-        rent_prices["CHF/m2"], "Extrapolated rent prices in CHF/m^2"
+        prices["CHF/m2"], "Extrapolated rent prices in CHF/m^2"
     )
 
     def style_function(feature):
@@ -151,22 +153,25 @@ def parcelles_prices(prices):
             "fillOpacity": OPACITY
         }
 
-    m = getMap()
     folium.GeoJson(
         prices._to_geo(),
         style_function=style_function,
         tooltip=folium.GeoJsonTooltip(["CHF/m2"]),
-    ).add_to(m)
+    ).add_to(layer)
+
+    return colormap
+
+
+def parcelles_prices(prices):
+    """Return a heatmap where different parcelle prices have different colors"""
+    m = getMap()
+    colormap = __parcelles_prices(m, prices)
     m.add_child(colormap)
+
     return m
 
 
-def parcelles_prices_by_quartiers(parcelles):
-    """Return heatmap of parcelles prices by quartiers"""
-
-    colormap = rent_price_colormap(
-        parcelles["CHF/m2"], "Average rent prices in CHF/m^2"
-    )
+def __parcelles_prices_by_quartiers(layer, parcelles):
 
     def style_function_quartiers(feature):
         quartier_name = feature["properties"]["Name"]
@@ -182,12 +187,22 @@ def parcelles_prices_by_quartiers(parcelles):
             "fillOpacity": OPACITY
         }
 
-    m = getMap()
     folium.GeoJson(
         parcelles._to_geo(),
         style_function=style_function_quartiers,
         tooltip=folium.GeoJsonTooltip(["Name", "CHF/m2"]),
-    ).add_to(m)
+    ).add_to(layer)
+
+    colormap = rent_price_colormap(
+        parcelles["CHF/m2"], "Average rent prices in CHF/m^2"
+    )
+    return colormap
+
+
+def parcelles_prices_by_quartiers(parcelles):
+    """Return heatmap of parcelles prices by quartiers"""
+    m = getMap()
+    colormap = __parcelles_prices_by_quartiers(m, parcelles)
     m.add_child(colormap)
     return m
 
@@ -231,6 +246,7 @@ def by_owners_all_in_one(parcelles,
         name='2. Distribution of owners type denoised',
         overlay=False
     ).add_to(m)
+
     get_choropleth(
         parcelles, parcels_categories_denoised
     ).add_to(layer2)
@@ -239,6 +255,61 @@ def by_owners_all_in_one(parcelles,
         tile_layer = folium.TileLayer('cartodbpositron')
         tile_layer.add_to(layer2)
 
+    folium.LayerControl(
+        position='bottomright',
+        collapsed=False
+    ).add_to(m)
+
+    return m
+
+
+def __test(layerx):
+    folium.CircleMarker(
+        (46.531976, 6.649698),
+        radius=5,
+        fill_color='green',
+        weight=0,
+        tooltip=5,
+        fill_opacity=1,
+    ).add_to(layerx)
+
+
+def by_rents_all_in_one(rent_prices, prices_by_quartier, parcelles_prices):
+    """Return a map where different categories parcelles have different colors."""
+
+    m = getMap(tiles=None)
+
+    # Layer 1 - Rent prices
+    layer1 = folium.map.FeatureGroup(
+        name='Rent prices',
+        overlay=False
+    ).add_to(m)
+    colormap = __circles_prices(layer1, rent_prices)
+    # layer1.add_child(colormap) # Does not work
+    tile_layer = folium.TileLayer('cartodbpositron')
+    tile_layer.add_to(layer1)
+
+    # Layer 2 - Rents per quartier
+    layer2 = folium.map.FeatureGroup(
+        name='Rent prices by quartier',
+        overlay=False
+    ).add_to(m)
+    colormap = __parcelles_prices_by_quartiers(layer2, prices_by_quartier)
+    tile_layer = folium.TileLayer('cartodbpositron')
+    tile_layer.add_to(layer2)
+
+    # Layer 3 - All parcelles with prices
+    layer3 = folium.map.FeatureGroup(
+        name='Prices for each parcelle',
+        overlay=False
+    ).add_to(m)
+    colormap = __parcelles_prices(layer3, parcelles_prices)
+    # layer3.add_child(colormap) # Does not work
+    tile_layer = folium.TileLayer('cartodbpositron')
+    tile_layer.add_to(layer3)
+
+
+    # Add Legend to switch between layer
     folium.LayerControl(
         position='bottomright',
         collapsed=False
