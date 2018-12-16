@@ -142,7 +142,7 @@ def circles_prices(rent_prices):
 
 def __parcelles_prices(layer, prices):
     colormap = rent_price_colormap(
-        prices["CHF/m2"], "Extrapolated rent prices in CHF/m^2"
+        prices["CHF/m2"], "rent prices in CHF/m2""
     )
 
     def style_function(feature):
@@ -285,7 +285,6 @@ def by_rents_all_in_one(rent_prices, prices_by_quartier, parcelles_prices):
         overlay=False
     ).add_to(m)
     colormap = __circles_prices(layer1, rent_prices)
-    # layer1.add_child(colormap) # Does not work
     tile_layer = folium.TileLayer('cartodbpositron')
     tile_layer.add_to(layer1)
 
@@ -304,11 +303,10 @@ def by_rents_all_in_one(rent_prices, prices_by_quartier, parcelles_prices):
         overlay=False
     ).add_to(m)
     colormap = __parcelles_prices(layer3, parcelles_prices)
-    # layer3.add_child(colormap) # Does not work
     tile_layer = folium.TileLayer('cartodbpositron')
     tile_layer.add_to(layer3)
 
-
+    m.add_child(colormap) # Does not work
     # Add Legend to switch between layer
     folium.LayerControl(
         position='bottomright',
