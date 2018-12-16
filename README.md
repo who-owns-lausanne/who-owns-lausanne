@@ -219,9 +219,9 @@ we might want to use one of them:
 ## Individual Contribution
 
 - __Jonathan Besomi__:
-      - responsible for the Jupyter Notebook
-      - scraped tutti.ch for rent offers
-      - price extrapolation with K-nearest neighbours on parcelles
+   - responsible for the Jupyter Notebook
+   - scraped tutti.ch for rent offers
+   - price extrapolation with K-nearest neighbours on parcelles
 
 - __Yann Bolliger__:
     - wrote text/concept for project proposal
